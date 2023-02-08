@@ -1,12 +1,14 @@
 import { render, screen } from "@testing-library/react";
 
 import { describe, it } from 'vitest';
+ 
+import Login from "./login";
 
-import App from "./app";
+
 
 describe("App", () => {
-  it("renders the App", () => {
-    render(<App />);
+  it("renders login page", () => {
+    render(<Login />);
 
     screen.debug();
 
