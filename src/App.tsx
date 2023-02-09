@@ -1,8 +1,13 @@
+import Login from "./authentication/Login";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+
 const App =  () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold text-center"> Hello World! </h1>
-    </>
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />    
+    </Routes>
   );
 }
 
