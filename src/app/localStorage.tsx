@@ -1,15 +1,14 @@
-
 class StoreData {
     data: {[key: string]: any}
     constructor() {
-        this.data = this.load()
+        this.data = this.loadData()
     }
 
-    save = (data: {[key: string]: any}) => localStorage.setItem('userInfo', JSON.stringify(data))
+    saveInfo = (data: {[key: string]: any}) => localStorage.setItem('userInformation', JSON.stringify(data))
 
-    load = () => localStorage.getItem('userInfo') || {}
+    loadData = () => localStorage.getItem('userInfo') || {}
 
-    get = (key: string) => this.data[key]
+    getData = (key: string) => this.data[key]
 }
 
 
