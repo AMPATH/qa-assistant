@@ -1,41 +1,44 @@
-import { error } from "console";
 import { useEffect, useState } from "react";
-import Home from "../components/Home";
-import { useLocation } from 'react-router-dom';
+import storage from "../app/localStorage";
 const Login = () => {
-   const [authenticated,setAuthenticated] = useState(false)
+   useEffect(()=>{
+    const userInformation = localStorage.getItem("authenticated")
+if(userInformation == "true"){
+        window.location.href = "/"
+    }
+   },[])
     const [FormData,SetFormData] = useState({username:'',userPassword:'',})
     const { username, userPassword} = FormData;
     const onChange = (e: { target: { name: any; value: any; }; })=>{SetFormData({...FormData, [e.target.name]:e.target.value})}   
-    const submitLoginForm=(e: { preventDefault: () => void; })=>{
-      if(username.trim().length!==0 && userPassword.trim().length!==0){
-        e.preventDefault();
-        fetch("openmrs/ws/rest/v1/session",{
-        headers:{
-        'Authorization': 'Basic '+btoa(username+":"+userPassword), 
-        },
-        method:"GET",
-        redirect: 'follow'
-        }).then((Response=>Promise.all(([Response.json()])))).then((response)=>{
-            console.log("Authenticated:",response)
-            if(response[0].authenticated==true){
-                setAuthenticated(true)
-                window.location.href = "/"
-            }
-            if(response[0].authenticated==false){
-                alert("Invalid Username or Password!")
-            }
+    const submitLoginForm=(e: { preventDefault: () => void; })=>{ 
+    if(username.trim().length!==0 && userPassword.trim().length!==0){
+    e.preventDefault();
+    fetch("openmrs/ws/rest/v1/session",{
+    headers:{
+    'Authorization': 'Basic '+btoa(username+":"+userPassword), 
+    },
+    method:"GET",
+    redirect: 'follow'
+    }).then((Response=>Promise.all(([Response.json()])))).then((response)=>{
+        console.log("SessionId:",document.cookie)
+        if(response[0].authenticated==true){
+            storage.saveInfo(response)
+            localStorage.setItem('authenticated', response[0].authenticated)
+            window.location.href = "/"
         }
-        ).catch(e=>{
-            console.log("Error:",e)
-        })}
+        if(response[0].authenticated==false){
+            alert("Invalid Username or Password!")
+        }
+    }
+    ).catch(e=>{
+        console.log("Error:",e)
+    })}
     else{
         console.log("Fill in Login Forms")
     }}
     return (
         <section className="h-full gradient-form bg-gray-200 h-screen">
         <div className="w-[40%] max-auto mx-auto p-4">
-            {authenticated ? <Home/>:<>
             <div className="container py-2 px-6 h-full"></div>
             <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"></div>
             <h1 className="text-4xl text-center mt-16">QA ASSISTANT</h1>
@@ -54,8 +57,7 @@ const Login = () => {
                         <button onClick={submitLoginForm} className= "bg-blue-500 hover:bg-blue-700  w-[60%] mx-auto text-white font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline" type="button"> login </button>
                     </div>
                 </form>
-            </div>
-            </>}  
+            </div> 
         </div>
         </section>
     )

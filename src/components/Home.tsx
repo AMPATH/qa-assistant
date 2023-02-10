@@ -1,4 +1,5 @@
 import React from 'react'
+import storage from '../app/localStorage'
 
 
 const Home = () => {
