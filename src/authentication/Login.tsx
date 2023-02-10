@@ -2,6 +2,7 @@ import { error } from "console";
 import { useEffect, useState } from "react";
 import Home from "../components/Home";
 import { useLocation } from 'react-router-dom';
+import storage from "../app/localStorage";
 const Login = () => {
     const location = useLocation()
    const [authenticated,setAuthenticated] = useState(false)
@@ -22,7 +23,8 @@ const Login = () => {
         method:"GET",
         redirect: 'follow'
         }).then((Response=>Promise.all(([Response.json()])))).then((response)=>{
-            console.log("Authenticated:",response)
+            console.log("Authenticated:",response[0].authenticated)
+            storage.saveInfo(response[0])
             if(response[0].authenticated==true){
                 setAuthenticated(true)
                 window.location.href = "/"

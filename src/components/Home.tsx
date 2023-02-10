@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import storage from '../app/localStorage'
 
-const api_url = 'http://localhost:8089/openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
+const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
 
 const Home = () => {
     const [searchParams, setSearchParams] = useState()
+    const navigate = useNavigate()
 
     const handleChange = (event: any) => {
         const value = event.target.value;
@@ -14,6 +17,9 @@ const Home = () => {
     let password = 'Admin123'
 
     useEffect(() => {
+        if(!storage.getData('userInfo')) {
+            navigate('/login')
+       }
         const searchData = async () => {
             const result = await fetch(api_url, {
                 mode: 'no-cors',
@@ -27,6 +33,7 @@ const Home = () => {
        }
         // searchData()
     }, [])
+ 
 
   return (
     <div>
