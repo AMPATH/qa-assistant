@@ -5,14 +5,19 @@ import { useLocation } from 'react-router-dom';
 const Login = () => {
     const location = useLocation()
    const [authenticated,setAuthenticated] = useState(false)
+   //if session cookie exists, proceed to authenticate
+   var sessionCookie = window.localStorage.getItem(JSON.parse("Jsession"))
+   if(sessionCookie){
+    setAuthenticated(true)
+   }
    //set formdata with form input values
     const [FormData,SetFormData] = useState({username:'',userPassword:'',})
-    //assign username & password to be form data
+    //assign username & password inputs to be form data
     const { username, userPassword} = FormData;
     //handle change input values for forms
     const onChange = (e: { target: { name: any; value: any; }; })=>{SetFormData({...FormData, [e.target.name]:e.target.value})}
-    //form submission function     
-    const submitForm=(e: { preventDefault: () => void; })=>{
+    //form submission     
+    const submitLoginForm=(e: { preventDefault: () => void; })=>{
       if(username.trim().length!==0 && userPassword.trim().length!==0){
         e.preventDefault();
         fetch("openmrs/ws/rest/v1/session",{
@@ -25,6 +30,7 @@ const Login = () => {
             console.log("Authenticated:",response)
             if(response[0].authenticated==true){
                 setAuthenticated(true)
+                //change url once authenticated.
                 window.location.href = "/"
             }
             if(response[0].authenticated==false){
@@ -51,7 +57,7 @@ const Login = () => {
                     <input type="password" onChange={onChange} name = "userPassword" placeholder="Enter password" required />
                     </div>
                     <div>
-                        <button onClick={submitForm} type="submit">Login</button>
+                        <button onClick={submitLoginForm} type="submit">Login</button>
                     </div>
                 </form>
             </div>
