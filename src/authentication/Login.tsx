@@ -6,11 +6,6 @@ import storage from "../app/localStorage";
 const Login = () => {
     const location = useLocation()
    const [authenticated,setAuthenticated] = useState(false)
-   //if session cookie exists, proceed to authenticate
-   var sessionCookie = window.localStorage.getItem(JSON.parse("Jsession"))
-   if(sessionCookie){
-    setAuthenticated(true)
-   }
    //set formdata with form input values
     const [FormData,SetFormData] = useState({username:'',userPassword:'',})
     //assign username & password inputs to be form data
@@ -68,7 +63,6 @@ const Login = () => {
                     </div>
                 </form>
             </div>
-            </>}  
         </div>
         </section>
     )
