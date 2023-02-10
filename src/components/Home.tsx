@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import storage from '../app/localStorage'
 
-const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
+// const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
+
+interface Result {
+    [key: string]: any
+}
 
 const Home = () => {
-    const [searchParams, setSearchParams] = useState()
+    const [searchParams, setSearchParams] = useState<string>()
+    const [results, setResults] = useState<Result[]>()
     const navigate = useNavigate()
 
     const handleChange = (event: any) => {
@@ -13,27 +18,22 @@ const Home = () => {
         setSearchParams(value)
     }
 
-    let username = 'admin'
-    let password = 'Admin123'
-
     useEffect(() => {
-        if(!storage.getData('userInfo')) {
-            navigate('/login')
-       }
-        const searchData = async () => {
-            const result = await fetch(api_url, {
-                mode: 'no-cors',
-                method: "GET",
-                headers: {'Authorization': 'Basic ' + btoa(username +":" +password)},
-                redirect: 'follow'
-            })
-            const data = await result.json()
-            console.log(data)
-            return data
-       }
-        // searchData()
-    }, [])
- 
+        let timer: number;
+        if(searchParams) {
+            timer = window.setTimeout(() => {
+                fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=1`, {
+                    mode: 'no-cors',
+                    method: "GET",
+                    redirect: 'follow'
+                }).then(res => res.json())
+                .then(data => setResults(data as Result[]))
+            }, 5000)
+        }
+        return () => clearTimeout(timer)
+    }, [searchParams])
+
+   console.log(results)
 
   return (
     <div>
