@@ -25,7 +25,7 @@ const Home = () => {
             console.log(data)
             return data
        }
-        searchData()
+        // searchData()
     }, [])
 
   return (
