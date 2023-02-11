@@ -40,6 +40,7 @@ if(userInformation == "true"){
         console.log("Fill in Login Forms")
     }}
 
+
     return (
         <section className="h-full gradient-form bg-gray-200 h-screen">
         <div className="w-[40%] max-auto mx-auto p-4">

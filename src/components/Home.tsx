@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import storage from '../app/localStorage'
-
-// 
 interface Result {
     [key: string]: any
 }
-
 const Home = () => {
     const [searchParams, setSearchParams] = useState<string>()
     const [results, setResults] = useState<Result[]>()
@@ -52,8 +48,16 @@ const Home = () => {
         </header>
 
         <div className='w-[80%] mx-auto'>
-            <div className='w-[80%] mx-auto m-4'>
-                <input className='w-full p-4 text-center text-xl border border-slate-200 rounded-sm' type="text" placeholder='Search Patient'/>
+            <div className='w-[80%] mx-auto m-4 flex gap-4'>
+                <input value={searchParams} onChange={handleChange} className='w-full p-4 text-center text-xl border border-slate-200 rounded-sm' type="text" placeholder='Search Patient'/>
+                <div className='m-2'>
+                <select className='p-4'>
+                    <option >Name</option>
+                    <option >UUID</option>
+                    <option>Age</option>
+                    <option>CC number</option>
+                </select>
+                </div>
             </div>
         </div>
     </div>
