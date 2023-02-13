@@ -1,10 +1,14 @@
-import { error } from "console";
 import { useEffect, useState } from "react";
 import Home from "../components/Home";
 import { useLocation, useNavigate } from 'react-router-dom';
 import storage from "../app/localStorage";
 const Login = () => {
-   const [authenticated,setAuthenticated] = useState(false)
+   useEffect(()=>{
+    const userInformation = localStorage.getItem("authenticated")
+if(userInformation == "true"){
+        window.location.href = "/"
+    }
+   },[])
     const [FormData,SetFormData] = useState({username:'',userPassword:'',})
     const { username, userPassword} = FormData;
     const navigate = useNavigate()
@@ -21,8 +25,8 @@ const Login = () => {
         }).then((Response=>Promise.all(([Response.json()])))).then((response)=>{
             console.log("Authenticated:",response[0].authenticated)
             storage.saveInfo(response[0])
+            localStorage.setItem("authenticated",response[0].authenticated)
             if(response[0].authenticated==true){
-                setAuthenticated(true)
                 navigate('/')
             }
             if(response[0].authenticated==false){
@@ -36,10 +40,10 @@ const Login = () => {
         console.log("Fill in Login Forms")
     }}
 
+
     return (
         <section className="h-full gradient-form bg-gray-200 h-screen">
         <div className="w-[40%] max-auto mx-auto p-4">
-            <>
             <div className="container py-2 px-6 h-full"></div>
             <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"></div>
             <h1 className="text-4xl text-center mt-16">QA ASSISTANT</h1>
@@ -59,7 +63,6 @@ const Login = () => {
                     </div>
                 </form>
             </div>
-            </>
         </div>
         </section>
     )

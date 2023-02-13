@@ -10,7 +10,5 @@ class StoreData {
 
     // getData = (key: string) => this.data[key]
 }
-
-
 const storage = new StoreData()
 export default storage;

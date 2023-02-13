@@ -8,7 +8,6 @@ import Header from './Header'
 interface Result {
     [key: string]: any
 }
-
 const Home = () => {
     const [searchParams, setSearchParams] = useState<string>()
     const [results, setResults] = useState<Result[]>()
@@ -17,6 +16,10 @@ const Home = () => {
     const handleChange = (event: any) => {
         const value = event.target.value;
         setSearchParams(value)
+    }
+    const userInformation = localStorage.getItem("authenticated")
+    if(userInformation!=="true"){
+        window.location.href = "/login"
     }
 
     useEffect(() => {
