@@ -9,9 +9,9 @@ const Header = () => {
   return (
     <div>
          <header className='bg-gray-100 flex justify-between p-4 items-center'>
-            <a className='cursor-pointer ml-3'>
+            <span className='cursor-pointer ml-3'>
                 <Link to="/"><img src={logo} width={150} /></Link>
-            </a>
+            </span>
             <nav className='mr-12'>
                 <ul className='flex gap-20'>
                     <li className='text-xl hover:bg-slate-300 p-4 rounded-sm cursor-pointer'>Log out</li>

@@ -10,19 +10,11 @@ export default defineConfig({
         // target: 'https://dev3.openmrs.org',
         target: 'http://localhost:8089',
         changeOrigin: true,
+        secure: false,
       },
     },
   },
   plugins: [react()],
-  // server:{
-  //   proxy:{
-  //     '/openmrs': {
-  //       target: 'http://localhost:8089/',
-  //       changeOrigin: true,
-  //       secure: false,
-  //     },
-  //   },
-  // },
   test: {
     environment: 'jsdom',
   },

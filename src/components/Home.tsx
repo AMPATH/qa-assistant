@@ -8,7 +8,7 @@ interface Result {
     [key: string]: any
 }
 const Home = () => {
-    const [searchParams, setSearchParams] = useState<string>()
+    const [searchParams, setSearchParams] = useState<string>('')
     const [results, setResults] = useState<Result[]>()
     const navigate = useNavigate()
 
@@ -36,7 +36,7 @@ const Home = () => {
         return () => clearTimeout(timer)
     }, [searchParams])
 
-//    console.log(results)
+   console.log(results)
 
   return (
     <div>
