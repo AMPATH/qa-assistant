@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import storage from '../app/localStorage'
 import Header from './Header'
 
 // const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
@@ -18,7 +17,7 @@ const Home = () => {
         setSearchParams(value)
     }
     const userInformation = localStorage.getItem("authenticated")
-    if(userInformation!=="true"){
+    if(userInformation !== "true"){
         window.location.href = "/login"
     }
 
