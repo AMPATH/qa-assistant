@@ -36,22 +36,35 @@ const Home = () => {
         return () => clearTimeout(timer)
     }, [searchParams])
 
-   console.log(results)
+//    console.log(results)
 
   return (
     <div>
        <Header />
-        <div className='w-[80%] mx-auto'>
+        <div className='w-[80%] mx-auto pt-4 mb-10'>
             <div className='w-[80%] mx-auto m-4 flex gap-4'>
-                <input value={searchParams} onChange={handleChange} className='w-full p-4 text-center text-xl border border-slate-200 rounded-sm' type="text" placeholder='Search Patient'/>
+                <input value={searchParams} onChange={handleChange} className='bg-neutral-300/95 font-semi-bold outline-none w-full p-2 text-center text-xl border rounded-sm' type="text" placeholder='Search Patient'/>
                 <div className='m-2'>
-                <select className='p-4'>
+                <select className='p-4 outline-none'>
                     <option >Name</option>
-                    <option >UUID</option>
-                    <option>Age</option>
-                    <option>CC number</option>
+                    <option>Patient Identifier</option>
                 </select>
                 </div>
+            </div>
+        </div>
+        <div className='w-[80%] mx-auto mt-32'>
+            <div></div>
+            <div className='flex mx-auto w-[90%] justify-between rounded-md bg-slate-200 p-4'>
+                <div>Name</div>
+                <div>Age</div>
+                <div>Gender</div>
+                <div>Date of birth</div>
+            </div>
+            <div className='flex mx-auto w-[90%] justify-between p-4 cursor-pointer hover:bg-blue-300/90 mt-1'>
+                <div>John</div>
+                <div>35</div>
+                <div>Male</div>
+                <div>10/05/1987</div>
             </div>
         </div>
     </div>
