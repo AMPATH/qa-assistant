@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import storage from '../app/localStorage'
+import Header from './Header'
 
 // const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
 
@@ -37,17 +38,7 @@ const Home = () => {
 
   return (
     <div>
-        <header className='bg-gray-100 flex justify-between p-6'>
-            <a className='ml-8'>QA assistant</a>
-            <nav className='mr-12'>
-                <ul className='flex gap-20'>
-                    <li>Home</li>
-                    <li>Active Orders</li>
-                    <li>Logout</li>
-                </ul>
-            </nav>
-        </header>
-
+       <Header />
         <div className='w-[80%] mx-auto'>
             <div className='w-[80%] mx-auto m-4 flex gap-4'>
                 <input value={searchParams} onChange={handleChange} className='w-full p-4 text-center text-xl border border-slate-200 rounded-sm' type="text" placeholder='Search Patient'/>

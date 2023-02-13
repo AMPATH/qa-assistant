@@ -7,8 +7,8 @@ export default defineConfig({
   server:{
     proxy:{
       '/openmrs': {
-        target: 'https://dev3.openmrs.org',
-        // target: 'http://localhost:8089',
+        // target: 'https://dev3.openmrs.org',
+        target: 'http://localhost:8089',
         changeOrigin: true,
       },
     },
