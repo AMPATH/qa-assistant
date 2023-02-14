@@ -62,7 +62,7 @@ const Login = () => {
                     </div>
                     <div className="p-4"></div>
                     <div className="flex items-center justify-between">
-                        <button onClick={submitLoginForm} className= "bg-blue-500 hover:bg-blue-700  w-[60%] mx-auto text-white font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline" type="button"> login </button>
+                        <button onClick={submitLoginForm} className= "bg-blue-500 hover:bg-blue-700  w-[60%] mx-auto text-white font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline" type="button"> LOGIN </button>
                     </div>
                 </form>
             </div>
