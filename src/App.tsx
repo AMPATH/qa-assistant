@@ -1,13 +1,14 @@
 import Login from "./authentication/Login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./components/Home";
-
 const App =  () => {
   return (
-    <Routes>
+    <Router>
+   <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />    
+        <Route path="/login" element={<Login />} />     
     </Routes>
+    </Router>
   );
 }
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import storage from '../app/localStorage'
+import Cookies from "js-cookie"
 interface Result {
     [key: string]: any
 }
@@ -7,7 +9,6 @@ const Home = () => {
     const [searchParams, setSearchParams] = useState<string>()
     const [results, setResults] = useState<Result[]>()
     const navigate = useNavigate()
-
     const handleChange = (event: any) => {
         const value = event.target.value;
         setSearchParams(value)
@@ -33,7 +34,11 @@ const Home = () => {
     }, [searchParams])
 
    console.log(results)
-
+const logoutSession = () =>{
+    storage.removeData("authenticated");
+    storage.removeData("userInformation");
+    window.location.href = "/login"
+}
   return (
     <div>
         <header className='bg-gray-100 flex justify-between p-6'>
@@ -42,7 +47,7 @@ const Home = () => {
                 <ul className='flex gap-20'>
                     <li>Home</li>
                     <li>Active Orders</li>
-                    <li>Logout</li>
+                    <li onClick={logoutSession}>Logout</li>
                 </ul>
             </nav>
         </header>
