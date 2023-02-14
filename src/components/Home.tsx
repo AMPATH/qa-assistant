@@ -43,7 +43,7 @@ const Home = () => {
     }, [searchParams])
 
     // if(results) {
-    //     console.log(results?.results[0].person.uuid)
+    //     console.log(new Date(results?.results[0].person.birthdate).toLocaleDateString())
     //     const convertString = results?.results[0].display.split(' ').slice(2).join()
     //     // const splitString = convertString.split(' ').slice(2).join()
     //     console.log(convertString)
@@ -79,7 +79,7 @@ const Home = () => {
                    </Link>
                     <div>{results?.results[0]?.person.age}</div>
                     <div>{results?.results[0]?.person?.gender}</div>
-                    <div>{results?.results[0]?.person.age}</div>
+                    <div>{new Date(results?.results[0].person.birthdate).toLocaleDateString()}</div>
                    </> 
                 ) : (
                     <p>Search a patient!!</p>
