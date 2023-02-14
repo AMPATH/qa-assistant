@@ -5,9 +5,8 @@ const Login = () => {
         <div className="w-[40%] max-auto mx-auto p-4">
             <div className="container py-2 px-6 h-full"></div>
             <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"></div>
-            <h1 className="text-4xl text-center mt-16">QA ASSISTANT</h1>
             <div className="p-4 bg-white shadow-md border rounded px-8 pt-6 pb-8 mb-4 mt-4">
-            <div className = "block text-gray-700 text-sm font-bold mb-2 p-4" for="Username"> Username </div>
+            <div className= "block text-gray-700 text-sm font-bold mb-2 p-4" for="Username"> Username </div> 
                 <form>
                     <div className="p-2">
                     <input className="shadow appearance-none border rounded w-full p-4 leading-tight" type="text" placeholder="Enter username" required />
