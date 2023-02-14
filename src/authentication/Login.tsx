@@ -44,6 +44,7 @@ if(userInformation == "true"){
     return (
         <section className="h-full gradient-form bg-gray-200 h-screen">
         <div className="w-[40%] max-auto mx-auto p-4">
+            <object data="vite.svg" width="300" height="300"> </object>
             <div className="container py-2 px-6 h-full"></div>
             <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"></div>
             <div className="p-4 bg-white shadow-md border rounded px-8 pt-6 pb-8 mb-4 mt-4">
