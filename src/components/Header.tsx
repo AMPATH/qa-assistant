@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div>
-         <header className='bg-gray-100 flex justify-between p-4 items-center'>
+         <header className='bg-themeColor flex justify-between p-4 items-center'>
             <span className='cursor-pointer ml-3'>
                 <Link to="/"><img src={logo} width={150} /></Link>
             </span>

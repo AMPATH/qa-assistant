@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Header from './Header'
 
 // const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
@@ -10,12 +10,13 @@ interface Result {
 const Home = () => {
     const [searchParams, setSearchParams] = useState<string>('')
     const [results, setResults] = useState<Result[]>()
-    const navigate = useNavigate()
+
 
     const handleChange = (event: any) => {
         const value = event.target.value;
         setSearchParams(value)
     }
+
     const userInformation = localStorage.getItem("authenticated")
     if(userInformation !== "true"){
         window.location.href = "/login"
@@ -54,7 +55,7 @@ const Home = () => {
        <Header />
         <div className='w-[80%] mx-auto pt-4 mb-10'>
             <div className='w-[80%] mx-auto m-4 flex gap-4'>
-                <input value={searchParams} onChange={handleChange} className='bg-neutral-300/95 font-semi-bold outline-none w-full p-2 text-center text-xl border rounded-sm' type="text" placeholder='Search Patient'/>
+                <input value={searchParams} onChange={handleChange} className='bg-searchColor font-semi-bold outline-none w-full p-2 text-center text-xl border rounded-sm' type="text" placeholder='Search Patient'/>
                 <div className='m-2'>
                 <select className='p-4 outline-none'>
                     <option >Name</option>
@@ -79,7 +80,7 @@ const Home = () => {
                    </Link>
                     <div>{results?.results[0]?.person.age}</div>
                     <div>{results?.results[0]?.person?.gender}</div>
-                    <div>{new Date(results?.results[0].person.birthdate).toLocaleDateString()}</div>
+                    <div>{results?.results[0]?.person.birthdate && new Date(results?.results[0]?.person.birthdate).toLocaleDateString()}</div>
                    </> 
                 ) : (
                     <p>Search a patient!!</p>
