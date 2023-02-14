@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from './Header'
 
 // const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
@@ -43,7 +43,7 @@ const Home = () => {
     }, [searchParams])
 
     // if(results) {
-    //     console.log(results?.results[0].person.age)
+    //     console.log(results?.results[0].person.uuid)
     //     const convertString = results?.results[0].display.split(' ').slice(2).join()
     //     // const splitString = convertString.split(' ').slice(2).join()
     //     console.log(convertString)
@@ -71,10 +71,12 @@ const Home = () => {
                 <div>Gender</div>
                 <div>Date of birth</div>
             </div>
-            <div className='flex mx-auto w-[90%] justify-between p-4 cursor-pointer hover:bg-blue-300/90 mt-1'>
+            <div className='flex mx-auto w-[90%] justify-between p-4 cursor-pointer mt-1'>
                 {results ? (
                     <>
-                   <div>{results?.results[0]?.display.split(' ').slice(2).join(' ')}</div>
+                   <Link to={`${results?.results[0]?.person.uuid}`}>
+                   <div className='hover:text-blue-600'>{results?.results[0]?.display.split(' ').slice(2).join(' ')}</div>
+                   </Link>
                     <div>{results?.results[0]?.person.age}</div>
                     <div>{results?.results[0]?.person?.gender}</div>
                     <div>{results?.results[0]?.person.age}</div>
