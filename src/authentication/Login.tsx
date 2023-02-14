@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Home from "../components/Home";
 import { useLocation, useNavigate } from 'react-router-dom';
 import storage from "../app/localStorage";
+
+
 const Login = () => {
    useEffect(()=>{
     const userInformation = localStorage.getItem("authenticated")
-if(userInformation == "true"){
+   if(userInformation == "true"){
         window.location.href = "/"
     }
    },[])
@@ -42,7 +44,7 @@ if(userInformation == "true"){
 
 
     return (
-        <section className="h-full gradient-form bg-gray-200 h-screen">
+        <section className="h-screen gradient-form bg-gray-200">
         <div className="w-[40%] max-auto mx-auto p-4">
             <object data="vite.svg" width="300" height="300"> </object>
             <div className="container py-2 px-6 h-full"></div>
