@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
     const data = storage.loadData()
-    const currentUser = data?.user.display
+    const currentUser = data?.user?.display
 
     const handleLogout = () => {
         localStorage.removeItem('userInformation');

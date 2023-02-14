@@ -23,20 +23,31 @@ const Home = () => {
 
     useEffect(() => {
         let timer: number;
-        if(searchParams) {
+        if(searchParams && searchParams.trim() && searchParams.length > 0) {
             timer = window.setTimeout(() => {
                 fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=1`, {
                     mode: 'no-cors',
                     method: "GET",
                     redirect: 'follow'
                 }).then(res => res.json())
-                .then(data => setResults(data as Result[]))
-            }, 5000)
+                .then(data => {
+                    if(!data) {
+                        return
+                    } 
+                    setResults(data)
+                    setSearchParams('')
+                })
+            }, 2000)
         }
         return () => clearTimeout(timer)
     }, [searchParams])
 
-   console.log(results)
+    // if(results) {
+    //     console.log(results?.results[0].person.age)
+    //     const convertString = results?.results[0].display.split(' ').slice(2).join()
+    //     // const splitString = convertString.split(' ').slice(2).join()
+    //     console.log(convertString)
+    // }
 
   return (
     <div>
@@ -61,10 +72,16 @@ const Home = () => {
                 <div>Date of birth</div>
             </div>
             <div className='flex mx-auto w-[90%] justify-between p-4 cursor-pointer hover:bg-blue-300/90 mt-1'>
-                <div>John</div>
-                <div>35</div>
-                <div>Male</div>
-                <div>10/05/1987</div>
+                {results ? (
+                    <>
+                   <div>{results?.results[0]?.display.split(' ').slice(2).join(' ')}</div>
+                    <div>{results?.results[0]?.person.age}</div>
+                    <div>{results?.results[0]?.person?.gender}</div>
+                    <div>{results?.results[0]?.person.age}</div>
+                   </> 
+                ) : (
+                    <p>Search a patient!!</p>
+                )}
             </div>
         </div>
     </div>
