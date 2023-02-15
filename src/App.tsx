@@ -1,10 +1,10 @@
 import Login from "./authentication/Login";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 const App =  () => {
   return (
     <Router>
-   <Routes>
+    <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />     
     </Routes>

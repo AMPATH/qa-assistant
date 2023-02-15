@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from './Header'
-import storage from '../app/localStorage'
+
 // const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
 
 interface Result {
     [key: string]: any
 }
 const Home = () => {
-    const [searchParams, setSearchParams] = useState<string>()
+    const [searchParams, setSearchParams] = useState<string>('')
     const [results, setResults] = useState<Result[]>()
 
 
@@ -16,55 +16,43 @@ const Home = () => {
         const value = event.target.value;
         setSearchParams(value)
     }
-
     const userInformation = localStorage.getItem("authenticated")
-    if(userInformation!=="true"){
+    console.log("user information:",userInformation)
+    if(userInformation !== "true"){
         window.location.href = "/login"
     }
 
     useEffect(() => {
         let timer: number;
-        if(searchParams) {
+        if(searchParams && searchParams.trim() && searchParams.length > 0) {
             timer = window.setTimeout(() => {
                 fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=1`, {
                     mode: 'no-cors',
                     method: "GET",
                     redirect: 'follow'
                 }).then(res => res.json())
-                .then(data => setResults(data as Result[]))
-            }, 5000)
+                .then(data => {
+                    if(!data) {
+                        return
+                    } 
+                    setResults(data)
+                    setSearchParams('')
+                })
+            }, 2000)
         }
         return () => clearTimeout(timer)
     }, [searchParams])
 
-   console.log(results)
-const logoutSession = () =>{
-    storage.removeData("authenticated");
-    storage.removeData("userInformation");
-    window.location.href = "/login"
-}
   return (
     <div>
-        <header className='bg-gray-100 flex justify-between p-6'>
-            <a className='ml-8'>QA assistant</a>
-            <nav className='mr-12'>
-                <ul className='flex gap-20'>
-                    <li>Home</li>
-                    <li>Active Orders</li>
-                    <li onClick={logoutSession}>Logout</li>
-                </ul>
-            </nav>
-        </header>
-
-        <div className='w-[80%] mx-auto'>
+       <Header />
+        <div className='w-[80%] mx-auto pt-4 mb-10'>
             <div className='w-[80%] mx-auto m-4 flex gap-4'>
                 <input value={searchParams} onChange={handleChange} className='bg-searchColor font-semi-bold outline-none w-full p-2 text-center text-xl border rounded-sm' type="text" placeholder='Search Patient'/>
                 <div className='m-2'>
-                <select className='p-4'>
+                <select className='p-4 outline-none'>
                     <option >Name</option>
-                    <option >UUID</option>
-                    <option>Age</option>
-                    <option>CC number</option>
+                    <option>Patient Identifier</option>
                 </select>
                 </div>
             </div>

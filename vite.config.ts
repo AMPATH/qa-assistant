@@ -6,9 +6,10 @@ export default defineConfig({
   server:{
     proxy:{
       '/openmrs': {
-        // target: 'https://dev3.openmrs.org',
-        target:'http://10.50.200.136:8089',
+        target: 'https://dev3.openmrs.org',
+        // target:'http://10.50.200.136:8089',
         changeOrigin: true,
+        secure: false,
       },
     },
   },

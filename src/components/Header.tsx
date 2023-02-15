@@ -7,10 +7,15 @@ const Header = () => {
     const data = storage.loadData()
     const currentUser = data?.user?.display
 
-    const handleLogout = () => {
-        localStorage.removeItem('userInformation');
-        localStorage.removeItem('authenticated')
-        window.location.reload();
+    const handleLogout = async () => {
+        await fetch("openmrs/ws/rest/v1/session",{
+        method:"delete"
+        }).then(()=>{
+            localStorage.removeItem('userInformation');
+            localStorage.removeItem('authenticated')
+            window.location.href = "/login"
+        }  
+        )
     }
 
   return (

@@ -60,7 +60,7 @@ SetFormData({username:'',userPassword:''})
        )
     }
     return (
-        <section className="h-full gradient-form bg-gray-200 h-screen">
+        <section className="h-screen gradient-form bg-gray-200">
         <div className="w-[40%] max-auto mx-auto p-4">
             <div className="container py-2 px-6 h-full"></div>
             <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"></div>
