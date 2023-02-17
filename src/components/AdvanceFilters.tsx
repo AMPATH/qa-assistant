@@ -3,8 +3,8 @@ import React from 'react'
 const AdvanceFilters = () => {
   return (
     <div className='mb-2'>
-        <div className='ml-28 flex gap-5'>
-        <div className='p-4 border border-gray-400 rounded-lg'>
+        <div className='ml-32 flex gap-12'>
+        <div className='px-3 py-3 border border-gray-400 rounded-lg'>
         <label>
           Gender:
         <select name="selectedFruit">
@@ -14,7 +14,7 @@ const AdvanceFilters = () => {
         </select>
         </label>
         </div>
-        <div className='p-4 border border-gray-400 rounded-lg'>
+        <div className='px-3 py-3 border border-gray-400 rounded-lg'>
         <label>
           Age bracket:
         <select name="selectedFruit">
@@ -24,7 +24,7 @@ const AdvanceFilters = () => {
         </select>
         </label>
         </div>
-        <div className='p-4 border border-gray-400 rounded-lg'>
+        <div className='px-3 py-3 border border-gray-400 rounded-lg'>
         <label>
           Identifier:
         <select name="selectedFruit">
