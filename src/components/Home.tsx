@@ -61,6 +61,10 @@ const Home = () => {
         setSearchParams('')
     }
 
+    const handleAdvancedFiltering = () => {
+        return patients
+    }
+
 
   return (
     <div className='bg-themeColor h-screen'>
@@ -81,7 +85,7 @@ const Home = () => {
             </div>
             {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search patient</p>) : (
             <div>
-            <DisplayPatientResult patients={currentPatients} totalPatients={patients}/>
+            <DisplayPatientResult patients={currentPatients} totalPatients={patients} handleAdvancedFiltering={handleAdvancedFiltering}/>
             <Pagination patientsPerPage={patientsPerPage} 
                         totalPatients={patients.length}
                         paginate={paginate}/>

@@ -1,12 +1,12 @@
 import AdvanceFilters from "./AdvanceFilters";
 
 
-const DisplayPatientResult = ({patients, totalPatients}) => {
+const DisplayPatientResult = ({patients, totalPatients, handleAdvancedFiltering}) => {
 
 
       return (
             <div className="mt-20">
-            {totalPatients.length > 1 && <AdvanceFilters />}
+            {totalPatients.length > 1 && <AdvanceFilters handleAdvancedFiltering={handleAdvancedFiltering} />}
             <p className="ml-28 mb-4"><strong>{totalPatients.length}</strong> Patients found</p>
                 <table className="table-auto mx-auto bg-white p-4 w-[85%] rounded-xl">
                   <thead className="bg-tableHeader rounded-xl">
@@ -24,7 +24,7 @@ const DisplayPatientResult = ({patients, totalPatients}) => {
                       <td className="p-6">{item.uuid}</td>
                       <td className="p-6">{item.identifiers[0].cc_number}</td>
                       <td className="p-6">{item.name}</td>
-                      <td className="p-6">1961</td>
+                      <td className="p-6">{item.gender || "gender"}</td>
                       <td className="p-6">{item.age}</td>
                     </tr>
                     ))}

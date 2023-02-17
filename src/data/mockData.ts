@@ -12,7 +12,8 @@
   {
       uuid: Math.floor(Math.random() * 100000),
       name: "John white",
-      age: 12,
+      gender: 'Male',
+      age: 50,
       dateofbirth: 121212,
       orders: [
           "lab test",
@@ -87,7 +88,8 @@
 {
     uuid: Math.floor(Math.random() * 100000),
     name: "John white",
-    age: 12,
+    age: 10,
+    gender: "Female",
     dateofbirth: 121212,
     orders: [
         "lab test",
