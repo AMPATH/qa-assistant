@@ -11,7 +11,7 @@
  const mockData = [
   {
       uuid: Math.floor(Math.random() * 100000),
-      name: "John doe",
+      name: "John white",
       age: 12,
       dateofbirth: 121212,
       orders: [
@@ -36,7 +36,7 @@
   },
   {
     uuid: Math.floor(Math.random() * 100000),
-    name: "John doe",
+    name: "Jane doe",
     age: 12,
     dateofbirth: 121212,
     orders: [
@@ -61,7 +61,7 @@
 },
 {
     uuid: Math.floor(Math.random() * 100000),
-    name: "John doe",
+    name: "Jane doe",
     age: 12,
     dateofbirth: 121212,
     orders: [
@@ -86,7 +86,7 @@
 },
 {
     uuid: Math.floor(Math.random() * 100000),
-    name: "John doe",
+    name: "John white",
     age: 12,
     dateofbirth: 121212,
     orders: [
@@ -111,7 +111,7 @@
 },
 {
     uuid: Math.floor(Math.random() * 100000),
-    name: "John doe",
+    name: "Sarah doe",
     age: 12,
     dateofbirth: 121212,
     orders: [

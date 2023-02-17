@@ -43,7 +43,7 @@ const Home = () => {
         // return () => clearTimeout(timer)
 
 
-        setPatients(data)
+        // setPatients(data)
 
     }, [])
 
@@ -54,7 +54,10 @@ const Home = () => {
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
     const handleSubmit = () => {
-        console.log(searchParams)
+        if(searchParams.trim() && searchParams !== ''){
+            const newData  = data.filter(item => item.name === searchParams)
+            setPatients(newData)
+        }
         setSearchParams('')
     }
 
@@ -72,11 +75,11 @@ const Home = () => {
                            onChange={(e) => setSearchParams(e.target.value)}/>
                     <div className='flex gap-11'>
                         <button onClick={handleSubmit} className='bg-blue-800/70 text-lg text-white py-2 px-12 rounded-md hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
-                        <button className='bg-slate-50 text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-md'>Reset</button>
+                        <button onClick={() => setSearchParams('')} className='bg-slate-50 text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-md'>Reset</button>
                     </div>
                 </div>
             </div>
-            {patients && patients.length < 1 ? (<p>Search patient</p>) : (
+            {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search patient</p>) : (
             <div>
             <DisplayPatientResult patients={currentPatients} totalPatients={patients}/>
             <Pagination patientsPerPage={patientsPerPage} 

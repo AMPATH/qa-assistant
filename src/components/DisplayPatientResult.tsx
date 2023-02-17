@@ -20,7 +20,7 @@ const DisplayPatientResult = ({patients, totalPatients}) => {
                   </thead>
                   <tbody className="m-4">
                     {patients.map((item, index: number) => (
-                      <tr key={index}>
+                      <tr className="hover:text-blue-600 hover:cursor-pointer" key={index}>
                       <td className="p-6">{item.uuid}</td>
                       <td className="p-6">{item.identifiers[0].cc_number}</td>
                       <td className="p-6">{item.name}</td>
