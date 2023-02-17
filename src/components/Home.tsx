@@ -48,7 +48,7 @@ const Home = () => {
     const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
     const currentPatients = patients.slice(indexOfFirstPatients, indexOfLastPatient)
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   return (
     <div className='bg-themeColor h-screen'>
