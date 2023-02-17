@@ -7,8 +7,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        themeColor: '#84EAF8',
+        themeColor: '#EEEDED',
         searchColor: '#F6F4F4',
+        buttonColor: '#487EBO',
+        tableHeader: '#D9D9D9'
       }
     },
   },
