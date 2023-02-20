@@ -6,7 +6,7 @@ import Pagination from './Pagination'
 import data from '../data/mockData'
 
 interface Result {
-    [key: string]: any
+    newData: []
 }
 const Home = () => {
     const [patients, setPatients] = useState<[]>([])
@@ -14,38 +14,6 @@ const Home = () => {
     const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
 
-    // const [results, setResults] = useState<Result[]>()
-
-    // const userInformation = localStorage.getItem("authenticated")
-    // if(userInformation !== "true"){
-    //     window.location.href = "/login"
-    // }
-
-    useEffect(() => {
-        // let timer: number;
-        // if(searchParams && searchParams.trim() && searchParams.length > 0) {
-        //     timer = window.setTimeout(() => {
-        //         fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=1`, {
-        //             mode: 'no-cors',
-        //             method: "GET",
-        //             redirect: 'follow'
-        //         }).then(res => res.json())
-        //         .then(data => {
-        //             if(!data) {
-        //                 return
-        //             } 
-        //             // console.log(data.results)
-        //             setResults(data.results as Result[])
-        //             setSearchParams('')
-        //         })
-        //     }, 2000)
-        // }
-        // return () => clearTimeout(timer)
-
-
-        // setPatients(data)
-
-    }, [])
 
     const indexOfLastPatient = currentPage * patientsPerPage;
     const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
@@ -55,14 +23,22 @@ const Home = () => {
 
     const handleSubmit = () => {
         if(searchParams.trim() && searchParams !== ''){
-            const newData  = data.filter(item => item.name === searchParams)
-            setPatients(newData)
+            const newData = data.filter(item => {
+                const namesInFull: string[] = item.name.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            setPatients(newData as [])
         }
         setSearchParams('')
     }
 
-    const handleAdvancedFiltering = () => {
+    const handleAdvancedFiltering = (): Object[] => {
         return patients
+    }
+
+    const handleFilter = (filteredPatients: []) => {
+        setPatients(filteredPatients)
     }
 
 
@@ -83,9 +59,12 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search patient</p>) : (
+            {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search for a patient</p>) : (
             <div>
-            <DisplayPatientResult patients={currentPatients} totalPatients={patients} handleAdvancedFiltering={handleAdvancedFiltering}/>
+            <DisplayPatientResult patients={currentPatients} 
+                                  totalPatients={patients} 
+                                  handleAdvancedFiltering={handleAdvancedFiltering}
+                                  handleFilter={handleFilter}/>
             <Pagination patientsPerPage={patientsPerPage} 
                         totalPatients={patients.length}
                         paginate={paginate}/>

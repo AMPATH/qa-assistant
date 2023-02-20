@@ -1,55 +1,52 @@
 import React, { useState } from 'react'
 
-const AdvanceFilters = ({handleAdvancedFiltering}) => {
+
+const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
   const [selectedGender, setSelectedGender] = useState('Male')
   const [selectedAgeBracket, setSelectedAgeBracket] = useState('0-18')
   const [selectedIdentifier, setSelectedIdentifier] = useState('cc_number')
 
 
     const searchResult = handleAdvancedFiltering()
+    // console.log(searchResult)
 
 
     const handleAgeBracket = () => {
-      let ageBracket;
+      let ageBracket: Object[];
       if(selectedAgeBracket) {
         if(selectedAgeBracket === '0-18') {
-          ageBracket = searchResult.filter(item => item.age <= 18)
+          ageBracket = searchResult.filter((item: Object[]) => item.age <= 18)
           return ageBracket;
         }
 
         if(selectedAgeBracket === '18-36') {
-          ageBracket = searchResult.filter(item => item.age > 18 && item.age <= 36)
+          ageBracket = searchResult.filter((item: Object[]) => item.age > 18 && item.age <= 36)
           return ageBracket;
-          console.log(ageBracket)
         }
 
         if(selectedAgeBracket === '36 +') {
-          ageBracket = searchResult.filter(item => item.age > 36)
+          ageBracket = searchResult.filter((item: Object[]) => item.age > 36)
           return ageBracket;
-          console.log(ageBracket)
         }
         
       }
-      return ageBracket;
+      // return ageBracket;
     }
 
     const handleGender = () => {
       if(selectedGender) {
-        const gender = searchResult.filter(item => item.gender === selectedGender)
+        const gender: [] = searchResult.filter((item: []) => item.gender === selectedGender)
+        // console.log('G:', gender)
         return gender;
       }
     }
 
     const handlePatientSearch = () => {
-      const ageBracket = handleAgeBracket()
-      const gender = handleGender()
+      const ageBracket = handleAgeBracket() ?? []
+      const gender = handleGender() ?? []
 
-      if(ageBracket && ((ageBracket[0]?.gender) === gender[0]?.gender)) {
-        console.log(ageBracket)
-      }else {
-        console.log('No results')
-      }
-      
+      const filteredData = ageBracket.filter(entry => gender.includes(entry))
+        handleFilter(filteredData)      
     }
 
 
