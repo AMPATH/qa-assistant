@@ -9,7 +9,6 @@ module.exports = {
       colors: {
         hashBlue: '#487EB0',
         lightGray:'#eeeded',
-      },
         themeColor: '#EEEDED',
         searchColor: '#F6F4F4',
         buttonColor: '#487EBO',

@@ -1,5 +1,6 @@
-import React from 'react';
-import Header from './Header';
+import React from 'react'
+import Header from './Header'
+import data from '../data/dummyData'
 const PatientInformation = () => {
 
     return (
