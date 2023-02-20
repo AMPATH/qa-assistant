@@ -48,14 +48,14 @@ const Home = () => {
         <div className='w-[80%] mx-auto mt-20'>
             <div className='w-[90%] mx-auto'>
                 <div className='flex gap-10 m-4 mx-auto w-[95%] ml-20'>
-                    <input className='p-4 w-[60%] rounded-sm outline-none border border-gray-400 border-gray' 
+                    <input className='p-4 w-[60%] rounded-sm outline-none rounded-xl shadow-lg' 
                            type="text" 
                            placeholder="Search patient by name or identifier"
                            value={searchParams} 
                            onChange={(e) => setSearchParams(e.target.value)}/>
                     <div className='flex gap-11'>
-                        <button onClick={handleSubmit} className='bg-blue-800/70 text-lg text-white py-2 px-12 rounded-md hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
-                        <button onClick={() => setSearchParams('')} className='bg-slate-50 text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-md'>Reset</button>
+                        <button onClick={handleSubmit} className='bg-blue-800/70 text-lg text-white py-2 px-12 rounded-xl hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
+                        <button onClick={() => setSearchParams('')} className='bg-slate-50 text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-xl'>Reset</button>
                     </div>
                 </div>
             </div>
