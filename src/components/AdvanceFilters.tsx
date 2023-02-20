@@ -50,12 +50,12 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
 
 
   return (
-    <div className='mb-2'>
+    <div className='mb-2 mt-8'>
         <div className='ml-32 flex gap-12'>
-        <div className='px-3 py-3 border border-gray-400 rounded-lg'>
+        <div className='px-3 py-2 border border-gray-400 rounded-lg'>
         <label>
           Gender:
-        <select 
+        <select className='p-2 outline-none'
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}>
             <option value="Male">Male</option>
@@ -65,10 +65,10 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
         </label>
         </div>
 
-        <div className='px-3 py-3 border border-gray-400 rounded-lg'>
+        <div className='px-3 py-2 border border-gray-400 rounded-lg'>
         <label>
           Age bracket:
-        <select 
+        <select className='p-2 outline-none' 
             value={selectedAgeBracket}
             onChange={(e) => setSelectedAgeBracket(e.target.value)}>
             <option value="0-18">0-18</option>
@@ -77,15 +77,15 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
         </select>
         </label>
         </div>
-        <div className='px-3 py-3 border border-gray-400 rounded-lg'>
+        <div className='px-3 py-2 border border-gray-400 rounded-lg'>
         <label>
           Identifier:
-        <select 
+        <select className='p-2 outline-none' 
             value={selectedIdentifier}
             onChange={(e) => setSelectedIdentifier(e.target.value)}>
-            <option value="cc_number">12345678</option>
-            <option value="nhif">12345</option>
-            <option value="id_number">2121212</option>
+            <option value="cc_number">CC NO.</option>
+            <option value="nhif">NHIF NO.</option>
+            <option value="id_number">ID NO.</option>
         </select>
         </label>
         </div>

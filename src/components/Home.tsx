@@ -48,7 +48,7 @@ const Home = () => {
         <div className='w-[80%] mx-auto mt-20'>
             <div className='w-[90%] mx-auto'>
                 <div className='flex gap-10 m-4 mx-auto w-[95%] ml-20'>
-                    <input className='p-4 w-[60%] rounded-sm outline-none rounded-xl shadow-lg' 
+                    <input className='p-4 w-[60%] outline-none rounded-xl shadow-lg' 
                            type="text" 
                            placeholder="Search patient by name or identifier"
                            value={searchParams} 
