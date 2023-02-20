@@ -28,9 +28,24 @@ const Home = () => {
                 const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
                 return matchingNames.length > 0
             })
-            setPatients(newData as [])
+            if(newData) {
+                setPatients(newData as [])
+            }
         }
         setSearchParams('')
+    }
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if(searchParams.trim() && searchParams !== ''){
+            if(e.key === 'Enter') {
+                const newData = data.filter(item => {
+                    const namesInFull: string[] = item.name.split(" ")
+                    const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                    return matchingNames.length > 0
+                })
+                setPatients(newData as [])
+            }
+        }
     }
 
     const handleAdvancedFiltering = (): Object[] => {
@@ -52,6 +67,7 @@ const Home = () => {
                            type="text" 
                            placeholder="Search patient by name or identifier"
                            value={searchParams} 
+                           onKeyDown={handleKeyPress}
                            onChange={(e) => setSearchParams(e.target.value)}/>
                     <div className='flex gap-11'>
                         <button onClick={handleSubmit} className='bg-blue-800/70 text-lg text-white py-2 px-12 rounded-xl hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
