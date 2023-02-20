@@ -1,88 +1,97 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import DisplayPatientResult from './DisplayPatientResult'
 import Header from './Header'
-
-// const api_url = 'openmrs/ws/rest/v1/patient?q=Sarah&v=default&limit=1'
+import Pagination from './Pagination'
+import data from '../data/mockData'
 
 interface Result {
     [key: string]: any
 }
 const Home = () => {
+    const [patients, setPatients] = useState<[]>([])
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
-    const [results, setResults] = useState<Result[]>()
-    const navigate = useNavigate()
 
-    const handleChange = (event: any) => {
-        const value = event.target.value;
-        setSearchParams(value)
-    }
-    const userInformation = localStorage.getItem("authenticated")
-    if(userInformation !== "true"){
-        window.location.href = "/login"
-    }
+    // const [results, setResults] = useState<Result[]>()
 
-    useEffect(() => {
-        let timer: number;
-        if(searchParams && searchParams.trim() && searchParams.length > 0) {
-            timer = window.setTimeout(() => {
-                fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=1`, {
-                    mode: 'no-cors',
-                    method: "GET",
-                    redirect: 'follow'
-                }).then(res => res.json())
-                .then(data => {
-                    if(!data) {
-                        return
-                    } 
-                    setResults(data)
-                    setSearchParams('')
-                })
-            }, 2000)
-        }
-        return () => clearTimeout(timer)
-    }, [searchParams])
-
-    // if(results) {
-    //     console.log(results?.results[0].person.age)
-    //     const convertString = results?.results[0].display.split(' ').slice(2).join()
-    //     // const splitString = convertString.split(' ').slice(2).join()
-    //     console.log(convertString)
+    // const userInformation = localStorage.getItem("authenticated")
+    // if(userInformation !== "true"){
+    //     window.location.href = "/login"
     // }
 
+    useEffect(() => {
+        // let timer: number;
+        // if(searchParams && searchParams.trim() && searchParams.length > 0) {
+        //     timer = window.setTimeout(() => {
+        //         fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=1`, {
+        //             mode: 'no-cors',
+        //             method: "GET",
+        //             redirect: 'follow'
+        //         }).then(res => res.json())
+        //         .then(data => {
+        //             if(!data) {
+        //                 return
+        //             } 
+        //             // console.log(data.results)
+        //             setResults(data.results as Result[])
+        //             setSearchParams('')
+        //         })
+        //     }, 2000)
+        // }
+        // return () => clearTimeout(timer)
+
+
+        // setPatients(data)
+
+    }, [])
+
+    const indexOfLastPatient = currentPage * patientsPerPage;
+    const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
+    const currentPatients = patients.slice(indexOfFirstPatients, indexOfLastPatient)
+
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
+    const handleSubmit = () => {
+        if(searchParams.trim() && searchParams !== ''){
+            const newData  = data.filter(item => item.name === searchParams)
+            setPatients(newData)
+        }
+        setSearchParams('')
+    }
+
+    const handleAdvancedFiltering = () => {
+        return patients
+    }
+
+
   return (
-    <div>
+    <div className='bg-themeColor h-screen'>
        <Header />
-        <div className='w-[80%] mx-auto pt-4 mb-10'>
-            <div className='w-[80%] mx-auto m-4 flex gap-4'>
-                <input value={searchParams} onChange={handleChange} className='bg-neutral-300/95 font-semi-bold outline-none w-full p-2 text-center text-xl border rounded-sm' type="text" placeholder='Search Patient'/>
-                <div className='m-2'>
-                <select className='p-4 outline-none'>
-                    <option >Name</option>
-                    <option>Patient Identifier</option>
-                </select>
+        <div className='w-[80%] mx-auto mt-20'>
+            <div className='w-[90%] mx-auto'>
+                <div className='flex gap-10 m-4 mx-auto w-[95%] ml-20'>
+                    <input className='p-4 w-[60%] rounded-sm outline-none border border-gray-400 border-gray' 
+                           type="text" 
+                           placeholder="Search patient by name or identifier"
+                           value={searchParams} 
+                           onChange={(e) => setSearchParams(e.target.value)}/>
+                    <div className='flex gap-11'>
+                        <button onClick={handleSubmit} className='bg-blue-800/70 text-lg text-white py-2 px-12 rounded-md hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
+                        <button onClick={() => setSearchParams('')} className='bg-slate-50 text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-md'>Reset</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className='w-[80%] mx-auto mt-32'>
-            <div></div>
-            <div className='flex mx-auto w-[90%] justify-between rounded-md bg-slate-200 p-4'>
-                <div>Name</div>
-                <div>Age</div>
-                <div>Gender</div>
-                <div>Date of birth</div>
-            </div>
-            <div className='flex mx-auto w-[90%] justify-between p-4 cursor-pointer hover:bg-blue-300/90 mt-1'>
-                {results ? (
-                    <>
-                   <div>{results?.results[0]?.display.split(' ').slice(2).join(' ')}</div>
-                    <div>{results?.results[0]?.person.age}</div>
-                    <div>{results?.results[0]?.person?.gender}</div>
-                    <div>{results?.results[0]?.person.age}</div>
-                   </> 
-                ) : (
-                    <p>Search a patient!!</p>
-                )}
-            </div>
+            {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search patient</p>) : (
+            <div>
+            <DisplayPatientResult patients={currentPatients} totalPatients={patients} handleAdvancedFiltering={handleAdvancedFiltering}/>
+            <Pagination patientsPerPage={patientsPerPage} 
+                        totalPatients={patients.length}
+                        paginate={paginate}/>
+           </div>
+            )}
+
         </div>
     </div>
   )

@@ -9,25 +9,30 @@ const Header = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('userInformation');
-        localStorage.removeItem('authenticated')
+        localStorage.removeItem('authenticated');
+
+        (async () => {
+            await fetch("openmrs/ws/rest/v1/session", {
+                    method:"DELETE",
+                    redirect: 'follow'
+            })
+        })()
         window.location.reload();
     }
 
   return (
     <div>
-         <header className='bg-gray-100 flex justify-between p-4 items-center'>
+         <header className='bg-white shadow-md flex justify-between p-4 items-center'>
             <span className='cursor-pointer ml-3'>
                 <Link to="/"><img src={logo} width={150} /></Link>
             </span>
             <nav className='mr-12'>
-                <ul className='flex gap-20'>
+                <ul className='flex items-center gap-20'>
+                    <li>Logged in as ADMIN</li>
                     <li className='text-xl hover:bg-slate-300 p-4 rounded-sm cursor-pointer' onClick={handleLogout}>Log out</li>
                 </ul>
             </nav>
         </header>
-        <div className='relative p-2'>
-        <span className='absolute right-12 italic'>Logged in as <strong>{currentUser}</strong></span>
-        </div>
     </div>
   )
 }
