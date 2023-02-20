@@ -6,11 +6,11 @@ import logo from '../../public/logo/ampath_Logo.png';
 
 
 const Login = () => {
-   useEffect(()=>{
-    const userInformation = localStorage.getItem("authenticated")
-   if(userInformation == "true"){
-        window.location.href = "/"
-    }
+    useEffect(()=>{
+     const userInformation = localStorage.getItem("authenticated")
+    if(userInformation == "true"){
+         window.location.href = "/"  //object can be used to get the current page address (URL) and to redirect the browser to a new page.
+     }
    },[])
     const [FormData,SetFormData] = useState({username:'',userPassword:'',})
     const { username, userPassword} = FormData;
