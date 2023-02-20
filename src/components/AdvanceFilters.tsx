@@ -8,24 +8,23 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
 
 
     const searchResult = handleAdvancedFiltering()
-    // console.log(searchResult)
 
 
     const handleAgeBracket = () => {
       let ageBracket: Object[];
       if(selectedAgeBracket) {
         if(selectedAgeBracket === '0-18') {
-          ageBracket = searchResult.filter((item: Object[]) => item.age <= 18)
+          ageBracket = searchResult.filter((item: Object[]) => item?.age <= 18)
           return ageBracket;
         }
 
         if(selectedAgeBracket === '18-36') {
-          ageBracket = searchResult.filter((item: Object[]) => item.age > 18 && item.age <= 36)
+          ageBracket = searchResult.filter((item: Object[]) => item?.age > 18 && item.age <= 36)
           return ageBracket;
         }
 
         if(selectedAgeBracket === '36 +') {
-          ageBracket = searchResult.filter((item: Object[]) => item.age > 36)
+          ageBracket = searchResult.filter((item: Object[]) => item?.age > 36)
           return ageBracket;
         }
         
