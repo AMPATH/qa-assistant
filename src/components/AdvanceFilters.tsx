@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 
+type FunctionProps = {
+  handleAdvancedFiltering: () => any;
+  handleFilter: ({}) => any;
+}
 
-const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
-  const [selectedGender, setSelectedGender] = useState('Male')
+const AdvanceFilters: React.FC<FunctionProps> = ({handleAdvancedFiltering, handleFilter}) => {
+  const [selectedGender, setSelectedGender] = useState('M')
   const [selectedAgeBracket, setSelectedAgeBracket] = useState('0-18')
-  const [selectedIdentifier, setSelectedIdentifier] = useState('cc_number')
+  // const [selectedIdentifier, setSelectedIdentifier] = useState('cc_number')
 
 
     const searchResult = handleAdvancedFiltering()
@@ -14,17 +18,17 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
       let ageBracket: Object[];
       if(selectedAgeBracket) {
         if(selectedAgeBracket === '0-18') {
-          ageBracket = searchResult.filter((item: Object[]) => item?.age <= 18)
+          ageBracket = searchResult.filter((item: any = {}) => item?.person.age <= 18)
           return ageBracket;
         }
 
         if(selectedAgeBracket === '18-36') {
-          ageBracket = searchResult.filter((item: Object[]) => item?.age > 18 && item.age <= 36)
+          ageBracket = searchResult.filter((item: any = {}) => item?.person.age > 18 && item?.person.age <= 36)
           return ageBracket;
         }
 
         if(selectedAgeBracket === '36 +') {
-          ageBracket = searchResult.filter((item: Object[]) => item?.age > 36)
+          ageBracket = searchResult.filter((item: any = {}) => item?.person.age > 36)
           return ageBracket;
         }
         
@@ -34,7 +38,7 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
 
     const handleGender = () => {
       if(selectedGender) {
-        const gender: [] = searchResult.filter((item: []) => item.gender === selectedGender)
+        const gender: [] = searchResult.filter((item: any = {}) => item?.person.gender === selectedGender)
         // console.log('G:', gender)
         return gender;
       }
@@ -44,7 +48,7 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
       const ageBracket = handleAgeBracket() ?? []
       const gender = handleGender() ?? []
 
-      const filteredData = ageBracket.filter(entry => gender.includes(entry))
+      const filteredData = ageBracket.filter((entry: any = {}) => gender.includes(entry as never))
         handleFilter(filteredData)      
     }
 
@@ -52,20 +56,20 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
   return (
     <div className='mb-2 mt-8'>
         <div className='ml-32 flex gap-12'>
-        <div className='px-3 py-2 border border-gray-400 rounded-lg'>
+        <div className='px-2 py-1 border border-gray-400 rounded-lg'>
         <label>
           Gender:
         <select className='p-2 outline-none'
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="M">M</option>
+            <option value="F">F</option>
             <option value="other">other</option>
         </select>
         </label>
         </div>
 
-        <div className='px-3 py-2 border border-gray-400 rounded-lg'>
+        <div className='px-2 py-1 border border-gray-400 rounded-lg'>
         <label>
           Age bracket:
         <select className='p-2 outline-none' 
@@ -77,7 +81,7 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
         </select>
         </label>
         </div>
-        <div className='px-3 py-2 border border-gray-400 rounded-lg'>
+        {/* <div className='px-3 py-2 border border-gray-400 rounded-lg'>
         <label>
           Identifier:
         <select className='p-2 outline-none' 
@@ -88,7 +92,7 @@ const AdvanceFilters = ({handleAdvancedFiltering, handleFilter}) => {
             <option value="id_number">ID NO.</option>
         </select>
         </label>
-        </div>
+        </div> */}
         <div className='m-2'>
           <button onClick={handlePatientSearch} className='bg-blue-500 px-4 py-2 rounded-md text'>Apply</button>
         </div>

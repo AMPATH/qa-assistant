@@ -1,6 +1,12 @@
 import React from 'react'
 
-const Pagination = ({patientsPerPage, totalPatients, paginate}) => {
+interface Props {
+    patientsPerPage: number;
+    totalPatients: number;
+    paginate: (number: number) => any;
+}
+
+const Pagination: React.FC<Props> = ({patientsPerPage, totalPatients, paginate}) => {
 
     let pageNumbers = []
 

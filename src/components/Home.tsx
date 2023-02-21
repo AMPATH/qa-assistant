@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import DisplayPatientResult from './DisplayPatientResult'
 import Header from './Header'
 import Pagination from './Pagination'
@@ -10,9 +9,28 @@ interface Result {
 }
 const Home = () => {
     const [patients, setPatients] = useState<[]>([])
+    const [patientsData, setPatientsData] = useState<[]>([])
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
+    let username = 'admin'
+    let password = 'Admin123'
+
+    useEffect(() => {
+        const fetchPatients = async () => {           
+       
+            await fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=full`,{
+                headers:{
+                    'Authorization': 'Basic '+btoa(username+":"+password),
+                    },
+                method:"GET",
+                redirect: 'follow'
+            })
+            .then((Response=>Promise.all(([Response.headers, Response.json()]))))
+            .then(([_,response])=> setPatientsData(response.results))
+        }
+        fetchPatients()
+    }, [searchParams])
 
 
     const indexOfLastPatient = currentPage * patientsPerPage;
@@ -22,9 +40,11 @@ const Home = () => {
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
     const handleSubmit = () => {
+        // console.log(patientsData)
+        // console.log(patientsData[0]?.person.display)
         if(searchParams.trim() && searchParams !== ''){
-            const newData = data.filter(item => {
-                const namesInFull: string[] = item.name.split(" ")
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
                 const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
                 return matchingNames.length > 0
             })
@@ -49,6 +69,7 @@ const Home = () => {
     }
 
     const handleAdvancedFiltering = (): Object[] => {
+        // console.log('handle', patients)
         return patients
     }
 
@@ -81,9 +102,11 @@ const Home = () => {
                                   totalPatients={patients} 
                                   handleAdvancedFiltering={handleAdvancedFiltering}
                                   handleFilter={handleFilter}/>
+            {patientsPerPage > 5 &&  
             <Pagination patientsPerPage={patientsPerPage} 
                         totalPatients={patients.length}
-                        paginate={paginate}/>
+                        paginate={paginate}/>}
+           
            </div>
             )}
 

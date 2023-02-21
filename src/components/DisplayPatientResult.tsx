@@ -1,19 +1,13 @@
 import AdvanceFilters from "./AdvanceFilters";
 
+type FunctionProps = {
+  handleAdvancedFiltering: () => any;
+  handleFilter: ({}) => any;
+  patients: [];
+  totalPatients: [];
+}
 
-const DisplayPatientResult = ({patients, totalPatients, handleAdvancedFiltering, handleFilter}) => {
-
-  interface Identifier {
-    cc_number?: number;
-  }
-  interface Patient {
-    uuid: number;
-    identifiers: Identifier[];
-    name: string;
-    gender: string;
-    age: number;
-  }
-
+const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients, handleAdvancedFiltering, handleFilter}) => {
 
       return (
         <>
@@ -44,22 +38,22 @@ const DisplayPatientResult = ({patients, totalPatients, handleAdvancedFiltering,
               </tr>
           </thead>
           <tbody>
-          {patients.map((item: Patient, index: number) => (
+          {patients.map((item: any = {}, index: number) => (
                             <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={index}>
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item.uuid}
+                            {item?.person.uuid}
                             </th>
                             <td className="px-6 py-4">
-                            {item.identifiers[0].cc_number}
+                            {item?.identifiers[0].display}
                             </td>
                             <td className="px-6 py-4">
-                            {item.name}
+                            {item?.person.display}
                             </td>
                             <td className="px-6 py-4">
-                            {item.gender || "gender"}
+                            {item?.person.gender}
                             </td>
                             <td className="px-6 py-4">
-                            {item.age}
+                            {item?.person.age}
                             </td>
                         </tr>
           ))}
