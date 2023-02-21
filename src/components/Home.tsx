@@ -3,6 +3,7 @@ import DisplayPatientResult from './DisplayPatientResult'
 import Header from './Header'
 import Pagination from './Pagination'
 import data from '../data/mockData'
+ 
 
 interface Result {
     newData: []
