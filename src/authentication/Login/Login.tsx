@@ -2,6 +2,7 @@ import { useState } from "react";
 import storage from "../../app/localStorage";
 import { ClipLoader } from "react-spinners";
 import Logo from '../../public/am-logo.jpg';
+import React from "react";
 
 const Login = () => {
 const userInformation = localStorage.getItem("authenticated")
@@ -12,7 +13,6 @@ const [errorMessage,setErrorMessage] = useState("");
 const [FormData,SetFormData] = useState({username:'',userPassword:'',})
 const { username, userPassword} = FormData;
 const [Loading,isLoading] = useState(false)
-
 const onChange = (e: { target: { name: any; value: any; };
     })=>{SetFormData({...FormData, [e.target.name]:e.target.value})}  
 
@@ -20,8 +20,8 @@ const onChange = (e: { target: { name: any; value: any; };
 const submitLoginForm= async (e: { preventDefault: () => void; })=>{ 
 if(username.trim().length!==0 && userPassword.trim().length!==0){
     e.preventDefault();
-    setErrorMessage('')
-    isLoading(true)
+    setErrorMessage('');
+    isLoading(true);
 await fetch("openmrs/ws/rest/v1/session",{
     headers:{
         'Authorization': 'Basic '+btoa(username+":"+userPassword), 
@@ -55,10 +55,10 @@ isLoading(false)
 //Handle Error Messages
 const DisplayErrorMessage = ()=>{
 return(
-    <div>
-        <p className="text-red-500 font-bold">{errorMessage}</p>
+    <div >
+        <p data-testid = "state-error"className="text-red-500 font-bold">{errorMessage}</p>
     </div>
-    )
+    ) 
 }
 return (
     <section className="h-screen bg-gray-100 flex items-center ">
@@ -71,7 +71,7 @@ return (
                             <div className="mt-10">
                             <input autoComplete="off"  name="userPassword" onChange={onChange} className="shadow border rounded p-4" type="password" placeholder="Password" required />
                             </div>
-                                    <div>
+                                    <div data-test-id="errors-div">
                                 {errorMessage && <DisplayErrorMessage/>}
                             </div>
                         <div className="flex justify-end p-5">
