@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+import Header from './Header/Header';
 const PatientInformation = () => {
 
     return (
@@ -8,16 +8,16 @@ const PatientInformation = () => {
             <div className=' w-[70%] mx-auto flex mt-8 h-[20%]'>
                 <div className='bg-hashBlue p-4 rounded w-[10%]'>
                     <div className='bg-lightGray px-8 py-6 rounded-full text-center'>
-                    <h1 className='text-4xl font-bold '>J</h1>
+                    <h1 className='text-6xl font-bold '>J</h1>
                     </div>
                     <div>
-                        <h4>JOHN DOE</h4>
+                        <h3 className='font-bold'>JOHN DOE</h3>
                     </div>
                 </div>
-                <div className='flex p-8 bg-white rounded w-[80%] justify-between'>
+                <div className='flex p-8 bg-white rounded w-[80%] justify-between text-2xl'>
                     <div>
                         <b>Phone Number</b>
-                        <p>25422222222</p>
+                        <p>2542222222</p>
                     </div>
                     <div>
                         <b>Gender</b>
