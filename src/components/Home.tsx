@@ -14,8 +14,8 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
-    let username = 'admin'
-    let password = 'Admin123'
+    let username = 'saningo'
+    let password = 'Saningo@1234'
 
     useEffect(() => {
         const fetchPatients = async () => {           
@@ -58,13 +58,130 @@ const Home = () => {
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if(searchParams.trim() && searchParams !== ''){
-            if(e.key === 'Enter') {
-                const newData = data.filter(item => {
-                    const namesInFull: string[] = item.name.split(" ")
-                    const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
-                    return matchingNames.length > 0
-                })
-                setPatients(newData as [])
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
+            }
+        } if(searchParams.trim() && searchParams !== ''){
+            const newData = patientsData.filter((data: any = {}) => {
+                const namesInFull: string[] = data?.display.split(" ")
+                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+                return matchingNames.length > 0
+            })
+            if(newData) {
+                setPatients(newData as any)
             }
         }
     }

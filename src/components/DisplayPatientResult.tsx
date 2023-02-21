@@ -41,19 +41,19 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients,
           {patients.map((item: any = {}, index: number) => (
                             <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={index}>
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item?.person.uuid}
+                            {item?.person?.uuid}
                             </th>
                             <td className="px-6 py-4">
-                            {item?.identifiers[0].display}
+                            {item?.identifiers[0]?.display}
                             </td>
                             <td className="px-6 py-4">
-                            {item?.person.display}
+                            {item?.person?.display}
                             </td>
                             <td className="px-6 py-4">
-                            {item?.person.gender}
+                            {item?.person?.gender}
                             </td>
                             <td className="px-6 py-4">
-                            {item?.person.age}
+                            {item?.person?.age}
                             </td>
                         </tr>
           ))}
