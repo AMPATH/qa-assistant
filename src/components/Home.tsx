@@ -8,7 +8,7 @@ interface Result {
     newData: []
 }
 const Home = () => {
-    const [patients, setPatients] = useState<[]>([])
+    const [patients, setPatients] = useState<any>([])
     const [patientsData, setPatientsData] = useState<[]>([])
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [patientsPerPage] = useState<number>(5)
@@ -49,7 +49,7 @@ const Home = () => {
                 return matchingNames.length > 0
             })
             if(newData) {
-                setPatients(newData as [])
+                setPatients(newData as any)
             }
         }
         setSearchParams('')
@@ -68,12 +68,11 @@ const Home = () => {
         }
     }
 
-    const handleAdvancedFiltering = (): Object[] => {
-        // console.log('handle', patients)
+    const handleAdvancedFiltering = (): any => {
         return patients
     }
 
-    const handleFilter = (filteredPatients: []) => {
+    const handleFilter = (filteredPatients: {}) => {
         setPatients(filteredPatients)
     }
 
