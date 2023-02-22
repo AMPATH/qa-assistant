@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import AdvanceFilters from "./AdvanceFilters";
 
 type FunctionProps = {
@@ -8,6 +9,11 @@ type FunctionProps = {
 }
 
 const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients, handleAdvancedFiltering, handleFilter}) => {
+    const navigate = useNavigate()
+
+    const handleRedirection = (id: number) => {
+        navigate(`/${id}`)
+    }
 
       return (
         <>
@@ -21,7 +27,7 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients,
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                   <th scope="col" className="px-6 py-3">
-                      No.
+                      Uuid No.
                   </th>
                   <th scope="col" className="px-6 py-3">
                       Identifiers
@@ -39,7 +45,7 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients,
           </thead>
           <tbody>
           {patients.map((item: any = {}, index: number) => (
-                            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={index}>
+                         <tr onClick={() => handleRedirection(item.person.uuid)} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-blue-500/95 hover:text-white hover:cursor-pointer" key={index}>
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item?.person?.uuid}
                             </th>

@@ -55,11 +55,11 @@ const AdvanceFilters: React.FC<FunctionProps> = ({handleAdvancedFiltering, handl
 
   return (
     <div className='mb-2 mt-8'>
-        <div className='ml-32 flex gap-12'>
-        <div className='px-2 py-1 border border-gray-400 rounded-lg'>
+        <div className='md:ml-32 flex md:gap-12 gap-3'>
+        <div className='md:px-2 py-1 border border-gray-400 rounded-lg'>
         <label>
           Gender:
-        <select className='p-2 outline-none'
+        <select className='md:p-2 outline-none'
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}>
             <option value="M">M</option>
@@ -69,10 +69,10 @@ const AdvanceFilters: React.FC<FunctionProps> = ({handleAdvancedFiltering, handl
         </label>
         </div>
 
-        <div className='px-2 py-1 border border-gray-400 rounded-lg'>
+        <div className='md:px-2 py-1 border border-gray-400 rounded-lg'>
         <label>
           Age bracket:
-        <select className='p-2 outline-none' 
+        <select className='md:p-2 outline-none' 
             value={selectedAgeBracket}
             onChange={(e) => setSelectedAgeBracket(e.target.value)}>
             <option value="0-18">0-18</option>
@@ -94,7 +94,7 @@ const AdvanceFilters: React.FC<FunctionProps> = ({handleAdvancedFiltering, handl
         </label>
         </div> */}
         <div className='m-2'>
-          <button onClick={handlePatientSearch} className='bg-blue-500 px-4 py-2 rounded-md text'>Apply</button>
+          <button onClick={handlePatientSearch} className='bg-blue-500 px-4 md:py-2 py-1 rounded-md text'>Apply</button>
         </div>
         </div>
     </div>
