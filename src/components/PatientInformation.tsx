@@ -5,13 +5,13 @@ const PatientInformation = () => {
     return (
         <div className='bg-lightGray h-screen'>
             <Header />
-            <div className=' w-[70%] mx-auto flex mt-8 h-[20%]'>
-                <div className='bg-hashBlue p-4 rounded w-[10%]'>
-                    <div className='bg-lightGray px-8 py-6 rounded-full text-center'>
-                    <h1 className='text-6xl font-bold '>J</h1>
+            <div className=' w-[70%] mx-auto flex mt-8 h-[20%] '>
+                <div className='bg-hashBlue p-4 rounded w-[20%]'>
+                    <div className='bg-lightGray rounded-full mx-auto w-36 h-36 flex justify-center items-center'>
+                    <h1 className='text-9xl font-bold '>J</h1>
                     </div>
                     <div>
-                        <h3 className='font-bold'>JOHN DOE</h3>
+                        <h3 className='font-bold text-center'>JOHN DOE</h3>
                     </div>
                 </div>
                 <div className='flex p-8 bg-white rounded w-[80%] justify-between text-2xl'>
