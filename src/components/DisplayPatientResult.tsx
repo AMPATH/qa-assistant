@@ -1,27 +1,43 @@
+import { useNavigate } from "react-router-dom";
 import AdvanceFilters from "./AdvanceFilters";
+import {  useEffect, useState } from "react";
 
 type FunctionProps = {
   handleAdvancedFiltering: () => any;
-  handleFilter: ({}) => any;
-  patients: [];
-  totalPatients: [];
+  patients: any;
 }
 
-const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients, handleAdvancedFiltering, handleFilter}) => {
+const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvancedFiltering}) => {
+    const navigate = useNavigate()
+    const [patientsData, setPatientsData] = useState([])
+    useEffect(() => {
+
+      setPatientsData(patients)
+
+    }, [])
+
+
+    const handleRedirection = (id: number) => {
+        navigate(`/${id}`)
+    }
+
+    const handleFilter = (filteredPatients: {}) => {
+      setPatientsData(filteredPatients as any)
+  }
 
       return (
         <>
-    {patients && (
+    {patientsData && (
       <>
-      {totalPatients.length > 1 &&  <AdvanceFilters handleAdvancedFiltering={handleAdvancedFiltering}
+      {patientsData.length > 1 &&  <AdvanceFilters handleAdvancedFiltering={handleAdvancedFiltering}
                                                     handleFilter={handleFilter}/>}
-      <p className="ml-28 mb-2 mt-4"><strong>{totalPatients.length}</strong> Patients found</p>
-           <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-[90%] mx-auto mt-8">
-      <table className="w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
+      <p className="ml-32 mb-2 mt-4"><strong>{patientsData.length}</strong> Patients found</p>
+      <div className="ml-32 relative overflow-x-auto shadow-md sm:rounded-lg w-[90%] mx-auto mt-8">
+         <table className="lg:w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                   <th scope="col" className="px-6 py-3">
-                      No.
+                      Uuid No.
                   </th>
                   <th scope="col" className="px-6 py-3">
                       Identifiers
@@ -38,8 +54,8 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, totalPatients,
               </tr>
           </thead>
           <tbody>
-          {patients.map((item: any = {}, index: number) => (
-                            <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700" key={index}>
+          {patientsData.map((item: any = {}, index: number) => (
+                         <tr onClick={() => handleRedirection(item.person.uuid)} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-blue-500/95 hover:text-white hover:cursor-pointer" key={index}>
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {item?.person?.uuid}
                             </th>

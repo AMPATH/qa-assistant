@@ -57,7 +57,7 @@ const Login = () => {
                     </div>
                     <div className="p-2">
                     <div className = "block text-gray-800 text-sm font-bold mb-2 p-4"> Password </div>
-                    <input  name="userPassword" onChange={onChange} className="shadow appearance-none border rounded w-full p-4 leading-tight w-full p-4" type="password" placeholder="Enter password" required />
+                    <input  name="userPassword" onChange={onChange} className="shadow appearance-none border rounded leading-tight w-full p-4" type="password" placeholder="Enter password" required />
                     </div>
                     <div className="p-4"></div>
                     <div className="flex items-center justify-between">

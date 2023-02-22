@@ -6,18 +6,13 @@ import { Server } from 'https';
 export default defineConfig({
   server:{
     proxy:{
-      '/openmrs': {
-        // target: 'https://dev3.openmrs.org',
-        target: 'http://localhost:8089',
-        changeOrigin: true,
-        secure: false,
-      },
+      '/openmrs': "http://localhost:8089/"
     },
   },
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    setupFiles: './tests/setup.ts'
+    setupFiles: './tests/setup.ts',
   },
   // setupFiles: './tests/setup.ts'
 });

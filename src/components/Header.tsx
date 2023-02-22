@@ -1,5 +1,6 @@
 import logo from '../../public/logo/ampath_Logo.png'
 import { Link } from 'react-router-dom'
+import {MdLogout} from 'react-icons/md'
 
 const Header = () => {
 
@@ -7,12 +8,12 @@ const Header = () => {
     <div>
          <header className='bg-white shadow-md flex justify-between p-4 items-center'>
             <span className='cursor-pointer ml-3'>
-                <Link to="/"><img src={logo} width={150} /></Link>
+                <Link to="/"><img src={logo} width={180} /></Link>
             </span>
-            <nav className='mr-12'>
-                <ul className='flex items-center gap-20'>
-                    <li>Logged in as ADMIN</li>
-                    <li className='text-xl hover:bg-slate-300 p-4 rounded-sm cursor-pointer'>Log out</li>
+            <nav className='md:mr-12'>
+                <ul className='md:flex items-center gap-20'>
+                    <li className='text-sm'>Logged in as <strong>ADMIN</strong></li>
+                    <li className='text-lg flex gap-2 items-center hover:bg-slate-300 p-2 rounded-sm cursor-pointer'><MdLogout />Log out</li>
                 </ul>
             </nav>
         </header>
