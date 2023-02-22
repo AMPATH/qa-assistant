@@ -1,8 +1,18 @@
+import Login from "./authentication/Login/Login";
+import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import PatientInformation from "./components/PatientInformation";
+
 const App =  () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold text-center"> Hello World! </h1>
-    </>
+    <Router>
+    <Routes>
+        <Route path="/" element={<Home />} />  
+        <Route path="/patients" element={<PatientInformation />} />
+        <Route path="/login" element={<Login />}/> 
+        <Route path="/" element={<Home />}/>     
+    </Routes>
+    </Router>
   );
 }
 
