@@ -1,11 +1,37 @@
 import Login from "./authentication/Login/Login";
 import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import PatientInformation from "./components/PatientInformation";
+import { AppContext, AppContextType } from "./context/AppContext";
+import { useState } from "react";
+import SideNavBar from "./components/SideNavBar";
+import Header from "./components/Header";
 
 const App =  () => {
+  const [patients, setPatients] = useState<[]>([])
+  const searchPatient = async (query: string) => {           
+       
+    await fetch(`openmrs/ws/rest/v1/patient?q=${query}&v=default&limit=full`,{
+        // headers:{
+        //     'Authorization': 'Basic '+btoa(username+":"+password),
+        //     },
+        method:"GET",
+        redirect: 'follow'
+    })
+    .then((Response=>Promise.all(([Response.headers, Response.json()]))))
+    .then(([_,response])=> setPatients(response.results))
+}
+
+const contextValue: AppContextType = {
+  patients,
+  searchPatient,
+}
+
+// console.log(patients)
   return (
+    <AppContext.Provider value={contextValue}>
     <Router>
+    <Header />
+      <SideNavBar />
     <Routes>
         <Route path="/" element={<Home />} />  
         <Route path="/patients" element={<PatientInformation />} />
@@ -13,6 +39,7 @@ const App =  () => {
         <Route path="/" element={<Home />}/>     
     </Routes>
     </Router>
+    </AppContext.Provider>
   );
 }
 

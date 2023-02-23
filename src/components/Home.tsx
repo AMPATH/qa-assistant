@@ -1,37 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import DisplayPatientResult from './DisplayPatientResult'
-import Header from './Header'
 import Pagination from './Pagination'
-// import data from '../data/mockData'
+import { AppContext } from '../context/AppContext'
  
 
 interface Result {
     newData: []
 }
 const Home = () => {
-    const [patients, setPatients] = useState<any>([])
-    const [patientsData, setPatientsData] = useState<[]>([])
+    const [patientInfo, setPatientInfo] = useState<any>([])
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
 
-    useEffect(() => {
-        const fetchPatients = async () => {           
-       
-            await fetch(`openmrs/ws/rest/v1/patient?q=${searchParams}&v=default&limit=full`,{
-                // headers:{
-                //     'Authorization': 'Basic '+btoa(username+":"+password),
-                //     },
-                method:"GET",
-                redirect: 'follow'
-            })
-            .then((Response=>Promise.all(([Response.headers, Response.json()]))))
-            .then(([_,response])=> setPatientsData(response.results))
-        }
-        fetchPatients()
-        
-    }, [searchParams])
-    // console.log(patient)
+    const { searchPatient, patients } = useContext(AppContext)
+    
 
     const indexOfLastPatient = currentPage * patientsPerPage;
     const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
@@ -42,14 +25,16 @@ const Home = () => {
     const handleSubmit = () => {
 
         if(searchParams.trim() && searchParams !== ''){
-            const newData = patientsData.filter((data: any = {}) => {
-                const namesInFull: string[] = data?.display.split(" ")
-                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
-                return matchingNames.length > 0
-            })
-            if(newData) {
-                setPatients(newData as any)
-            }
+            searchPatient(searchParams)
+            setPatientInfo(patients)
+            // const newData = patients.filter((data: any = {}) => {
+            //     const namesInFull: string[] = data?.display.split(" ")
+            //     const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
+            //     return matchingNames.length > 0
+            // })
+            // if(newData) {
+            //     setPatientInfo(newData as any)
+            // }
         }
 
         setSearchParams('')
@@ -57,30 +42,19 @@ const Home = () => {
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if(searchParams.trim() && searchParams !== ''){
-            const newData = patientsData.filter((data: any = {}) => {
-                const namesInFull: string[] = data?.display.split(" ")
-                const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
-                return matchingNames.length > 0
-            })
-            if(newData) {
-                setPatients(newData as any)
-            }
+            searchPatient(searchParams)
+            setPatientInfo(patients)
         }
     }
 
     const handleAdvancedFiltering = (): any => {
-        return patients
-    }
-
-    const handleFilter = (filteredPatients: {}) => {
-        setPatients(filteredPatients)
+        return patientInfo
     }
 
 
   return (
-    <div className='bg-themeColor h-screen'>
-       <Header />
-        <div className='w-[80%] mx-auto mt-20'>
+    <div className='bg-themeColor overflow-y-auto h-screen pt-10'>
+        <div className='w-[80%] ml-[12%]'>
             <div className='w-[90%] mx-auto'>
                 <div className='md:flex gap-10 m-4 mx-auto w-[95%] md:ml-20'>
                     <input className='py-2 px-4 md:w-[60%] w-full outline-none rounded-xl shadow-lg' 
@@ -97,10 +71,10 @@ const Home = () => {
             </div>
             {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search for a patient</p>) : (
             <div>
-            <DisplayPatientResult patients={currentPatients} 
-                                  totalPatients={patients} 
+            <DisplayPatientResult 
+                                  patients={currentPatients}
                                   handleAdvancedFiltering={handleAdvancedFiltering}
-                                  handleFilter={handleFilter}/>
+                                  />
             {patientsPerPage > 5 &&  
             <Pagination patientsPerPage={patientsPerPage} 
                         totalPatients={patients.length}
