@@ -1,9 +1,16 @@
-const App =  () => {
+import React from 'react'
+import Header from './Components/Header'
+import SideNavBar from './Components/SideBarNav'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Home from './Components/Home'
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold text-center"> Hello World! </h1>
-    </>
-  );
+  <Router>
+    <Routes>
+    <Route path='/' element={<Home/>}/>
+    </Routes>
+  </Router>
+  )
 }
 
-export default App;
+export default App

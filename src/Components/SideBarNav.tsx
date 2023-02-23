@@ -1,0 +1,34 @@
+import React from 'react'
+import {AiOutlineInfoCircle} from 'react-icons/ai'
+import {BsPencilSquare} from 'react-icons/bs'
+import {FaWalking, FaRegCalendarAlt} from 'react-icons/fa'
+import {BiBandAid} from 'react-icons/bi'
+import {GrMenu} from 'react-icons/gr' 
+import { Link } from 'react-router-dom'
+
+const SideNavBar = () => {
+  return (
+    <div className='hidden md:block absolute mt-[0.5%] bg-white h-[91%] pl-[2%]'>
+        <nav className='mt-0'>
+            <ul className='flex flex-col gap-10 text-xl mr-2'>
+                <Link to='/'>
+                <li className='py-2 px-4 flex gap-2 items-center hover:cursor-pointer hover:shadow-md text-blue-300'><AiOutlineInfoCircle /> Patients Info</li>
+                </Link>
+                <Link to="/orders">
+                <li className='py-2 px-4 flex gap-2 items-center hover:cursor-pointer hover:shadow-md'><BsPencilSquare />Orders</li>
+                </Link>
+                <Link to="/visits">
+                <li className='py-2 px-4 flex gap-2 items-center hover:cursor-pointer hover:shadow-md'><FaWalking />Visits</li>
+                </Link>
+                <Link to="/encounters">
+                <li className='py-2 px-4 flex gap-2 items-center hover:cursor-pointer hover:shadow-md'><BiBandAid />Encounters</li>
+                </Link>
+                <Link to="/observations">
+                <li className='py-2 px-4 flex gap-2 items-center hover:cursor-pointer hover:shadow-md'><FaRegCalendarAlt />Observations</li>
+                </Link>
+            </ul>
+        </nav>
+    </div>
+  )
+}
+export default SideNavBar
