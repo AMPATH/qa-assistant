@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from './Header/Header';
+import { useState,  useEffect } from 'react';
+
 const PatientInformation = () => {
 
     return (
