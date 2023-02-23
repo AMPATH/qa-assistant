@@ -1,11 +1,12 @@
 import Login from "./authentication/Login/Login";
-import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import { AppContext, AppContextType } from "./context/AppContext";
 import { useState } from "react";
 import SideNavBar from "./components/SideNavBar";
 import Header from "./components/Header";
 import PatientInformation from "./components/PatientInformation";
+import Orders from "./components/Orders/Orders";
 
 const App =  () => {
   const [patients, setPatients] = useState<[]>([])
@@ -41,10 +42,11 @@ const contextValue: AppContextType = {
         <Route path="/" element={<Home />} />  
         <Route path="/patients/:id" element={<PatientInformation />} />
         <Route path="/login" element={<Login />}/>   
+        <Route path="/orders" element={<Orders />} />
     </Routes>
     </Router>
     </AppContext.Provider>
   );
-}
+};
 
 export default App;
