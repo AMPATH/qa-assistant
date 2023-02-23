@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import Pagination from "../Pagination";
 
 function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [privileges, setPrivileges] = useState([]);
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [patientsPerPage] = useState<number>(5)
 
   interface Order {
     orderNumber: string;
@@ -13,7 +16,7 @@ function Orders() {
     orderUuid: string;
   }
 
-  let uuid = "221fdb15-a647-4b47-83bb-b8c49d66871c";
+  let uuid = "f3e5fd5a-4318-419e-86fd-98833d38ee08";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +65,12 @@ function Orders() {
     setPrivileges(user.privileges);
   }, []);
 
+  const indexOfLastPatient = currentPage * patientsPerPage;
+  const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
+  const currentOrders = orders.slice(indexOfFirstPatients, indexOfLastPatient)
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
   const handleVoidOrder = async (uuid: string) => {
     const canDeleteOrders = privileges.find(
       (privilege: { name: string }) => privilege.name === "Delete Orders"
@@ -91,16 +100,16 @@ function Orders() {
   };
 
   return (
-    <div className="w-full h-screen p-8 bg-slate-100 mt-28 overflow-y-hidden overflow-x-hidden">
+    <div className="w-full h-screen p-8 bg-slate-100 overflow-y-hidden overflow-x-hidden">
       {orders.length > 0 ? (
         <>
-          <div className="ml-44 ">
-            <h2 className="text-2xl font-semibold mb-8 text-center">
+          <div className="ml-[15%] ">
+            <h2 className="text-2xl font-semibold text-center">
               Active Orders
             </h2>
-            <h2>{orders.length} orders found</h2>
-            <table className="w-full bg-white">
-              <thead>
+            <h2 className="p-4"><strong>{orders.length}</strong> orders found</h2>
+            <table className="w-[90%] p-8 bg-white mt-2">
+              <thead >
                 <tr>
                   <th className="">Order Number</th>
                   <th className="text-left">Order</th>
@@ -110,8 +119,8 @@ function Orders() {
                   <th className="">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                {orders.map((order) => (
+              <tbody className="p-2">
+                {currentOrders.map((order) => (
                   <tr key={order.orderUuid}>
                     <td className="text-center">{order.orderNumber}</td>
                     <td className="">{order.order}</td>
@@ -120,7 +129,7 @@ function Orders() {
                     <td className="text-center">{order.urgency}</td>
                     <td className="text-center">
                       <button
-                        className="bg-cyan-900 text-white hover:bg-cyan-700 font-bold py-2 px-4 rounded-sm"
+                        className="bg-cyan-900 text-white hover:bg-cyan-700 font-bold py-2 m-4 px-4 rounded-sm"
                         onClick={() => handleVoidOrder(order.orderUuid)}
                       >
                         Void
@@ -130,10 +139,16 @@ function Orders() {
                 ))}
               </tbody>
             </table>
+            <Pagination patientsPerPage={patientsPerPage} 
+                        totalPatients={orders.length}
+                        paginate={paginate}/>
           </div>
         </>
       ) : (
-        <p>Loading...</p>
+        <div className="ml-[15%] p-4">
+          <h2 className="text-2xl p-5 underline">Whoops!</h2>
+        <p className="text-lg italic">No data found for this patient</p>
+        </div>
       )}
     </div>
   );
