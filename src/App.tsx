@@ -9,6 +9,9 @@ import PatientInformation from "./components/PatientInformation";
 
 const App =  () => {
   const [patients, setPatients] = useState<[]>([])
+  const [patientData, setPatientData] = useState<[]>([])
+
+
   const searchPatient = async (query: string) => {           
        
     await fetch(`openmrs/ws/rest/v1/patient?q=${query}&v=default&limit=full`,{
@@ -24,6 +27,7 @@ const App =  () => {
 
 const contextValue: AppContextType = {
   patients,
+  patientData,
   searchPatient,
 }
 
@@ -35,9 +39,8 @@ const contextValue: AppContextType = {
       <SideNavBar />
     <Routes>
         <Route path="/" element={<Home />} />  
-        <Route path="/patients" element={<PatientInformation />} />
-        <Route path="/login" element={<Login />}/> 
-        <Route path="/" element={<Home />}/>     
+        <Route path="/patients/:id" element={<PatientInformation />} />
+        <Route path="/login" element={<Login />}/>   
     </Routes>
     </Router>
     </AppContext.Provider>
