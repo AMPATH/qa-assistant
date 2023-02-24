@@ -2,6 +2,9 @@ import { useContext, useEffect, useState } from 'react'
 import DisplayPatientResult from './DisplayPatientResult'
 import Pagination from './Pagination'
 import { AppContext } from '../context/AppContext'
+import Header from './Header'
+import SideNavBar from './SideNavBar'
+import swal from 'sweetalert'
  
 
 interface Result {
@@ -14,6 +17,7 @@ const Home = () => {
     const [searchParams, setSearchParams] = useState<string>('')
 
     const { searchPatient, patients } = useContext(AppContext)
+
     
 
     const indexOfLastPatient = currentPage * patientsPerPage;
@@ -22,29 +26,33 @@ const Home = () => {
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
+    useEffect(()=>{
+        const banner = localStorage.getItem("Banner")
+          if(banner!==null){
+            swal({
+              title:'Success!',
+              text:"Logged In",
+              icon:"success",
+          })
+          }
+        localStorage.removeItem("Banner")
+        },[]) 
+
     const handleSubmit = () => {
 
         if(searchParams.trim() && searchParams !== ''){
             searchPatient(searchParams)
             setPatientInfo(patients)
-            // const newData = patients.filter((data: any = {}) => {
-            //     const namesInFull: string[] = data?.display.split(" ")
-            //     const matchingNames: string[] = namesInFull.filter(name => name.toLowerCase().startsWith(searchParams.toLowerCase()))
-            //     return matchingNames.length > 0
-            // })
-            // if(newData) {
-            //     setPatientInfo(newData as any)
-            // }
         }
 
         setSearchParams('')
     }
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if(searchParams.trim() && searchParams !== ''){
-            searchPatient(searchParams)
-            setPatientInfo(patients)
-        }
+        // if(searchParams.trim() && searchParams !== ''){
+        //     searchPatient(searchParams)
+        //     setPatientInfo(patients)
+        // }
     }
 
     const handleAdvancedFiltering = (): any => {
@@ -53,6 +61,9 @@ const Home = () => {
 
 
   return (
+    <>
+        <Header />
+      {/* <SideNavBar /> */}
     <div className='bg-themeColor overflow-y-auto h-screen pt-10'>
         <div className='w-[80%] ml-[12%]'>
             <div className='w-[90%] mx-auto'>
@@ -85,6 +96,7 @@ const Home = () => {
 
         </div>
     </div>
+    </>
   )
 }
 export default Home 

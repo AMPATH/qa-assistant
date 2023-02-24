@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import { AppContext, AppContextType } from "./context/AppContext";
 import { useState } from "react";
-import SideNavBar from "./components/SideNavBar";
-import Header from "./components/Header";
 import PatientInformation from "./components/PatientInformation";
 import Orders from "./components/Orders/Orders";
 
@@ -16,9 +14,6 @@ const App =  () => {
   const searchPatient = async (query: string) => {           
        
     await fetch(`openmrs/ws/rest/v1/patient?q=${query}&v=default&limit=full`,{
-        // headers:{
-        //     'Authorization': 'Basic '+btoa(username+":"+password),
-        //     },
         method:"GET",
         redirect: 'follow'
     })
@@ -36,8 +31,6 @@ const contextValue: AppContextType = {
   return (
     <AppContext.Provider value={contextValue}>
     <Router>
-    <Header />
-      <SideNavBar />
     <Routes>
         <Route path="/" element={<Home />} />  
         <Route path="/patients/:id" element={<PatientInformation />} />

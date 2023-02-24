@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Header from "../Header";
 import Pagination from "../Pagination";
+import SideNavBar from "../SideNavBar";
+import { AppContext } from '../../context/AppContext';
+import swal from "sweetalert";
 
 function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [privileges, setPrivileges] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [patientsPerPage] = useState<number>(5)
+
+  const { patientData } = useContext(AppContext)
+
 
   interface Order {
     orderNumber: string;
@@ -16,7 +23,10 @@ function Orders() {
     orderUuid: string;
   }
 
-  let uuid = "f3e5fd5a-4318-419e-86fd-98833d38ee08";
+
+   const uuid = patientData.map((info: any) => info[0].uuid)
+
+  // let uuid = "dbdf3009-12ca-4ea9-942a-de6600bf98f2";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,20 +102,34 @@ function Orders() {
       const currentOrders = orders.filter((order) => {
         return order.orderUuid !== uuid;
       });
+            swal({
+              title:'Order deleted!',
+              text:"successfully",
+              icon:"success",
+          })
 
       setOrders(currentOrders);
     } else {
-      alert("User lacks required privileges");
+      swal({
+        title:'User lack priviledge',
+        text:"Unathourized",
+        icon:"error",
+    })
     }
   };
 
+  const patientName = patientData.map((info: any = {}) => info[0].person.preferredName.display)
+
   return (
+    <>
+        <Header />
+      <SideNavBar />
     <div className="w-full h-screen p-8 bg-slate-100 overflow-y-hidden overflow-x-hidden">
       {orders.length > 0 ? (
         <>
           <div className="ml-[15%] ">
             <h2 className="text-2xl font-semibold text-center">
-              Active Orders
+              Active Orders for {patientName}
             </h2>
             <h2 className="p-4"><strong>{orders.length}</strong> orders found</h2>
             <table className="w-[90%] p-8 bg-white mt-2">
@@ -147,10 +171,11 @@ function Orders() {
       ) : (
         <div className="ml-[15%] p-4">
           <h2 className="text-2xl p-5 underline">Whoops!</h2>
-        <p className="text-lg italic">No data found for this patient</p>
+        <p className="text-lg italic">No orders found for this patient</p>
         </div>
       )}
     </div>
+    </>
   );
 }
 
