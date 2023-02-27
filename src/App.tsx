@@ -1,12 +1,6 @@
 import Login from "./authentication/Login/Login";
 import { BrowserRouter as Router,  Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import { AppContext, AppContextType } from "./context/AppContext";
-import { useState } from "react";
-import SideNavBar from "./components/SideNavBar";
-import Header from "./components/Header";
-import PatientInformation from "./components/PatientInformation";
-
 const App =  () => {
   const [patients, setPatients] = useState<[]>([])
   const [patientData, setPatientData] = useState<[]>([])
@@ -33,17 +27,12 @@ const contextValue: AppContextType = {
 
 // console.log(patients)
   return (
-    <AppContext.Provider value={contextValue}>
     <Router>
-    <Header />
-      <SideNavBar />
     <Routes>
-        <Route path="/" element={<Home />} />  
-        <Route path="/patients/:id" element={<PatientInformation />} />
-        <Route path="/login" element={<Login />}/>   
+        <Route path="/login" element={<Login />}/> 
+        <Route path="/" element={<Home />}/>     
     </Routes>
     </Router>
-    </AppContext.Provider>
   );
 }
 
