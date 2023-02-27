@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { Server } from 'https';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { Server } from "https";
 
 export default defineConfig({
   server:{

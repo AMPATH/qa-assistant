@@ -14,9 +14,6 @@ const AdvanceFilters: React.FC<FunctionProps> = ({ handleFilter}) => {
   const { patients } = useContext(AppContext)
 
 
-    // const searchResult = handleAdvancedFiltering()
-
-
     const handleAgeBracket = () => {
       let ageBracket: Object[];
       if(selectedAgeBracket) {
@@ -52,8 +49,12 @@ const AdvanceFilters: React.FC<FunctionProps> = ({ handleFilter}) => {
       const gender = handleGender() ?? []
 
       const filteredData = ageBracket.filter((entry: any = {}) => gender.includes(entry as never))
-      console.log(filteredData)
-        handleFilter(filteredData)      
+      if(filteredData.length > 0) {
+        handleFilter(filteredData)  
+      }else {
+        window.location.reload()
+      }
+            
     }
 
 
@@ -86,7 +87,7 @@ const AdvanceFilters: React.FC<FunctionProps> = ({ handleFilter}) => {
         </label>
         </div>
         <div className='m-2'>
-          <button onClick={handlePatientSearch} className='bg-blue-500 px-4 md:py-2 py-1 rounded-md text'>Apply</button>
+          <button onClick={handlePatientSearch} className='bg-white shadow-lg hover:text-white hover:bg-blue-500 text-black font-bold py-2 px-4 rounded'>Apply</button>
         </div>
         </div>
     </div>

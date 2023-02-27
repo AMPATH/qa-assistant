@@ -23,15 +23,19 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvanced
 
 
     const handleRedirection = (id: number) => {
-        const result: any = patients.filter((data: any) => data.uuid === id)
+        patientData.length = 0;
+        const result: any = [] = patients.filter((data: any) => data.uuid === id)
         if(patientData.length < 1) {
-            patientData.push(result)
+            patientData.push(result as never)
         }
         navigate(`/patients/${id}`)
     }
 
     const handleFilter = (filteredPatients: {}) => {
-      setPatientsData(filteredPatients as any)
+      if(filteredPatients) {
+        setPatientsData(filteredPatients as any)
+      }
+     
   }
 
       return (

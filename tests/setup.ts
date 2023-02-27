@@ -1,3 +1,4 @@
+<<<<<<< HEAD:tests/setup.ts
 import { expect, afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import matchers from '@testing-library/jest-dom/matchers';
@@ -6,6 +7,11 @@ import { fetch } from 'cross-fetch';
 
 // Add `fetch` polyfill.
 global.fetch = fetch;
+=======
+import { expect, afterEach } from "vitest";
+import { cleanup } from "@testing-library/react";
+import matchers from "@testing-library/jest-dom/matchers";
+>>>>>>> sharleen/DAP-6:__tests__/setup.ts
 
 // extends Vitest's expect method with methods from react-testing-library
 expect.extend(matchers);
