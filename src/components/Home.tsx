@@ -3,8 +3,9 @@ import DisplayPatientResult from './DisplayPatientResult'
 import Pagination from './Pagination'
 import { AppContext } from '../context/AppContext'
 import Header from './Header'
-import SideNavBar from './SideNavBar'
 import swal from 'sweetalert'
+import ClipLoader from "react-spinners/ClipLoader";
+import { useNavigate } from 'react-router-dom'
  
 
 interface Result {
@@ -15,8 +16,11 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
+    const [Loading,isLoading] = useState(false)
 
     const { searchPatient, patients } = useContext(AppContext)
+
+    const navigate = useNavigate()
 
     
 
@@ -36,16 +40,23 @@ const Home = () => {
           })
           }
         localStorage.removeItem("Banner")
+
+        const userInformation = localStorage.getItem("authenticated")
+        if(userInformation !== "true"){
+            navigate('/login')
+        }
+        
         },[]) 
 
     const handleSubmit = () => {
-
+        patients.length = 0;
         if(searchParams.trim() && searchParams !== ''){
+            isLoading(true)
             searchPatient(searchParams)
             setPatientInfo(patients)
         }
-
         setSearchParams('')
+        isLoading(false)
     }
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -70,7 +81,7 @@ const Home = () => {
                 <div className='md:flex gap-10 m-4 mx-auto w-[95%] md:ml-20'>
                     <input className='py-2 px-4 md:w-[60%] w-full outline-none rounded-xl shadow-lg' 
                            type="text" 
-                           placeholder="Search patient by name or identifier"
+                           placeholder="Search patient by name"
                            value={searchParams} 
                            onKeyDown={handleKeyPress}
                            onChange={(e) => setSearchParams(e.target.value)}/>
@@ -80,9 +91,12 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search for a patient</p>) : (
+            {Loading ? <div className="flex items-center ml-[15%] p-4 mt-4 text-2xl"><ClipLoader size={50} color ="blue"/></div>: (
+                <>
+         {patients && patients.length < 1 ? (<p className='text-lg ml-8'>Search for a patient</p>) : (
             <div>
-            <DisplayPatientResult 
+                    <>
+                     <DisplayPatientResult 
                                   patients={currentPatients}
                                   handleAdvancedFiltering={handleAdvancedFiltering}
                                   />
@@ -90,8 +104,10 @@ const Home = () => {
             <Pagination patientsPerPage={patientsPerPage} 
                         totalPatients={patients.length}
                         paginate={paginate}/>}
-           
+                    </>
            </div>
+            )}
+                </>
             )}
 
         </div>

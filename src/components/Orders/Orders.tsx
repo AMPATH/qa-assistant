@@ -4,12 +4,14 @@ import Pagination from "../Pagination";
 import SideNavBar from "../SideNavBar";
 import { AppContext } from '../../context/AppContext';
 import swal from "sweetalert";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function Orders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [privileges, setPrivileges] = useState([]);
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [patientsPerPage] = useState<number>(5)
+  const [Loading,isLoading] = useState(false)
 
   const { patientData } = useContext(AppContext)
 
@@ -30,6 +32,7 @@ function Orders() {
 
   useEffect(() => {
     const fetchData = async () => {
+      isLoading(true) 
       const response = await fetch(
         `openmrs/ws/rest/v1/order?patient=${uuid}&v=full`
       );
@@ -64,6 +67,7 @@ function Orders() {
       );
 
       setOrders(orders);
+      isLoading(false) 
     };
 
     fetchData();
@@ -111,8 +115,8 @@ function Orders() {
       setOrders(currentOrders);
     } else {
       swal({
-        title:'User lack priviledge',
-        text:"Unathourized",
+        title:'User lacks privilege',
+        text:"Unauthourized",
         icon:"error",
     })
     }
@@ -124,57 +128,60 @@ function Orders() {
     <>
         <Header />
       <SideNavBar />
+      {Loading ? <div className="flex items-center ml-[15%] p-4 mt-4 text-2xl"><ClipLoader size={50} color ="blue"/></div>: (
     <div className="w-full h-screen p-8 bg-slate-100 overflow-y-hidden overflow-x-hidden">
-      {orders.length > 0 ? (
-        <>
-          <div className="ml-[15%] ">
-            <h2 className="text-2xl font-semibold text-center">
-              Active Orders for {patientName}
-            </h2>
-            <h2 className="p-4"><strong>{orders.length}</strong> orders found</h2>
-            <table className="w-[90%] p-8 bg-white mt-2">
-              <thead >
-                <tr>
-                  <th className="">Order Number</th>
-                  <th className="text-left">Order</th>
-                  <th className="">Date Activated</th>
-                  <th className="">Ordered By</th>
-                  <th className="">Urgency</th>
-                  <th className="">Action</th>
-                </tr>
-              </thead>
-              <tbody className="p-2">
-                {currentOrders.map((order) => (
-                  <tr key={order.orderUuid}>
-                    <td className="text-center">{order.orderNumber}</td>
-                    <td className="">{order.order}</td>
-                    <td className="text-center">{order.date}</td>
-                    <td className="text-center">{order.orderer}</td>
-                    <td className="text-center">{order.urgency}</td>
-                    <td className="text-center">
-                      <button
-                        className="bg-cyan-900 text-white hover:bg-cyan-700 font-bold py-2 m-4 px-4 rounded-sm"
-                        onClick={() => handleVoidOrder(order.orderUuid)}
-                      >
-                        Void
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <Pagination patientsPerPage={patientsPerPage} 
-                        totalPatients={orders.length}
-                        paginate={paginate}/>
-          </div>
-        </>
-      ) : (
-        <div className="ml-[15%] p-4">
-          <h2 className="text-2xl p-5 underline">Whoops!</h2>
-        <p className="text-lg italic">No orders found for this patient</p>
-        </div>
-      )}
-    </div>
+    {orders.length > 0 ? (
+      <>
+
+               <div className="ml-[15%] ">
+                  <h2 className="text-2xl text-center">
+                    Active Orders for <span className="font-bold text-blue-500">{patientName}</span>
+                  </h2>
+                  <h2 className="p-4"><strong>{orders.length}</strong> orders found</h2>
+                  <table className="w-[90%] p-8 bg-white mt-2">
+                    <thead >
+                      <tr>
+                        <th className="">Order Number</th>
+                        <th className="text-left">Order</th>
+                        <th className="">Date Activated</th>
+                        <th className="">Ordered By</th>
+                        <th className="">Urgency</th>
+                        <th className="">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="p-2">
+                      {currentOrders.map((order) => (
+                        <tr key={order.orderUuid}>
+                          <td className="text-center">{order.orderNumber}</td>
+                          <td className="">{order.order}</td>
+                          <td className="text-center">{order.date}</td>
+                          <td className="text-center">{order.orderer}</td>
+                          <td className="text-center">{order.urgency}</td>
+                          <td className="text-center">
+                            <button
+                              className="bg-cyan-900 text-white hover:bg-cyan-700 font-bold py-2 m-4 px-4 rounded-sm"
+                              onClick={() => handleVoidOrder(order.orderUuid)}
+                            >
+                              Void
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <Pagination patientsPerPage={patientsPerPage} 
+                              totalPatients={orders.length}
+                              paginate={paginate}/>
+                </div>
+      </>
+    ) : (
+      <div className="ml-[15%] p-4">
+        <h2 className="text-2xl p-5 underline">Whoops!</h2>
+      <p className="text-lg italic">No orders found for this patient</p>
+      </div>
+    )}
+   </div>
+     )}
     </>
   );
 }
