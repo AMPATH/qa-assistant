@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import AdvanceFilters from "./AdvanceFilters";
-import {  useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
+import { AppContext } from '../context/AppContext'
 
 type FunctionProps = {
   handleAdvancedFiltering: () => any;
@@ -8,8 +9,12 @@ type FunctionProps = {
 }
 
 const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvancedFiltering}) => {
+    const { patientData } = useContext(AppContext)
+
     const navigate = useNavigate()
     const [patientsData, setPatientsData] = useState([])
+    // const [info, setInfo] = useState([])
+
     useEffect(() => {
 
       setPatientsData(patients)
@@ -18,7 +23,11 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvanced
 
 
     const handleRedirection = (id: number) => {
-        navigate(`/${id}`)
+        const result: any = patients.filter((data: any) => data.uuid === id)
+        if(patientData.length < 1) {
+            patientData.push(result)
+        }
+        navigate(`/patients/${id}`)
     }
 
     const handleFilter = (filteredPatients: {}) => {
