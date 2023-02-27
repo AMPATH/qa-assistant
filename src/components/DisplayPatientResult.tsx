@@ -32,7 +32,10 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvanced
     }
 
     const handleFilter = (filteredPatients: {}) => {
-      setPatientsData(filteredPatients as any)
+      if(filteredPatients) {
+        setPatientsData(filteredPatients as any)
+      }
+     
   }
 
       return (
