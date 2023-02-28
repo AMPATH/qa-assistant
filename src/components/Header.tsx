@@ -6,9 +6,9 @@ import storage from '../app/localStorage'
 
 const Header = () => {
   const loggedInUser = storage.loadData()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
-    const navigate = useNavigate()
     try {
       await fetch('openmrs/ws/rest/v1/session', {
         method: 'DELETE',
