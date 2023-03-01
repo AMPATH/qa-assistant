@@ -6,10 +6,13 @@ import { AppContext } from '../context/AppContext'
 type FunctionProps = {
   handleAdvancedFiltering: () => any;
   patients: any;
+  isTrue: boolean
 }
 
-const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvancedFiltering}) => {
+const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvancedFiltering, isTrue}) => {
     const { patientData } = useContext(AppContext)
+
+    // console.log(isTrue)
 
     const navigate = useNavigate()
     const [patientsData, setPatientsData] = useState([])
@@ -38,15 +41,17 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvanced
      
   }
 
+
+
       return (
         <>
     {patientsData && (
       <>
-      {patientsData.length > 1 &&  <AdvanceFilters handleAdvancedFiltering={handleAdvancedFiltering}
+      {isTrue && <AdvanceFilters handleAdvancedFiltering={handleAdvancedFiltering}
                                                     handleFilter={handleFilter}/>}
       <p className="ml-32 mb-2 mt-4"><strong>{patientsData.length}</strong> Patients found</p>
-      <div className="ml-32 relative overflow-x-auto shadow-md sm:rounded-lg w-[90%] mx-auto mt-8">
-         <table className="lg:w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
+      <div className="md:ml-32 relative overflow-x-auto shadow-md sm:rounded-lg md:w-[90%] md:mx-auto mt-8">
+         <table className=" lg:w-full mx-auto text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                   <th scope="col" className="px-6 py-3">
@@ -68,9 +73,9 @@ const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvanced
           </thead>
           <tbody>
           {patientsData.map((item: any = {}, index: number) => (
-                         <tr onClick={() => handleRedirection(item.person.uuid)} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-blue-500/95 hover:text-white hover:cursor-pointer" key={index}>
+                         <tr onClick={() => handleRedirection(item.person.uuid)} className="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-blue-400 hover:text-white hover:cursor-pointer" key={index}>
                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {item?.person?.uuid}
+                            {index + 1}
                             </th>
                             <td className="px-6 py-4">
                             {item?.identifiers[0]?.display}
