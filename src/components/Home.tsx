@@ -61,13 +61,6 @@ const Home = () => {
         isLoading(false)
     }
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        // if(searchParams.trim() && searchParams !== ''){
-        //     searchPatient(searchParams)
-        //     setPatientInfo(patients)
-        // }
-    }
-
     const handleAdvancedFiltering = (): any => {
         return patientInfo
     }
@@ -82,7 +75,6 @@ const Home = () => {
   return (
     <>
         <Header />
-      {/* <SideNavBar /> */}
     <div className='bg-themeColor overflow-y-auto h-screen pt-10'>
         <div className='w-[80%] mx-auto'>
             <div className='w-[90%] mx-auto'>
@@ -91,7 +83,6 @@ const Home = () => {
                            type="text" 
                            placeholder="Search patient by name"
                            value={searchParams} 
-                           onKeyDown={handleKeyPress}
                            onChange={(e) => setSearchParams(e.target.value)}/>
                     <div className='flex md:gap-11 gap-3 mt-4'>
                         <button onClick={handleSubmit} className='bg-blue-800/70 md:text-lg text-white py-2 px-12 rounded-xl hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>

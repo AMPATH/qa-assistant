@@ -12,8 +12,6 @@ type FunctionProps = {
 const DisplayPatientResult: React.FC<FunctionProps> = ({patients, handleAdvancedFiltering, isTrue}) => {
     const { patientData } = useContext(AppContext)
 
-    // console.log(isTrue)
-
     const navigate = useNavigate()
     const [patientsData, setPatientsData] = useState([])
     // const [info, setInfo] = useState([])
