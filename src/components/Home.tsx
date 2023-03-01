@@ -6,6 +6,7 @@ import Header from './Header'
 import swal from 'sweetalert'
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from 'react-router-dom'
+import { IoFilterSharp } from 'react-icons/io5'
  
 
 interface Result {
@@ -17,6 +18,7 @@ const Home = () => {
     const [patientsPerPage] = useState<number>(5)
     const [searchParams, setSearchParams] = useState<string>('')
     const [Loading,isLoading] = useState(false)
+    const [isTrue, setIsTrue] = useState<boolean>(false)
 
     const { searchPatient, patients } = useContext(AppContext)
 
@@ -69,6 +71,12 @@ const Home = () => {
     const handleAdvancedFiltering = (): any => {
         return patientInfo
     }
+  
+    const handleOpenFilters = () => {
+      setIsTrue(!isTrue)
+    }
+
+  
 
 
   return (
@@ -76,7 +84,7 @@ const Home = () => {
         <Header />
       {/* <SideNavBar /> */}
     <div className='bg-themeColor overflow-y-auto h-screen pt-10'>
-        <div className='w-[80%] ml-[12%]'>
+        <div className='w-[80%] mx-auto'>
             <div className='w-[90%] mx-auto'>
                 <div className='md:flex gap-10 m-4 mx-auto w-[95%] md:ml-20'>
                     <input className='py-2 px-4 md:w-[60%] w-full outline-none rounded-xl shadow-lg' 
@@ -86,8 +94,9 @@ const Home = () => {
                            onKeyDown={handleKeyPress}
                            onChange={(e) => setSearchParams(e.target.value)}/>
                     <div className='flex md:gap-11 gap-3 mt-4'>
-                        <button onClick={handleSubmit} className='bg-blue-800/70 text-lg text-white py-2 px-12 rounded-xl hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
-                        <button onClick={() => setSearchParams('')} className='bg-slate-50 text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-xl'>Reset</button>
+                        <button onClick={handleSubmit} className='bg-blue-800/70 md:text-lg text-white py-2 px-12 rounded-xl hover:bg-white border hover:border-blue-800/70 hover:text-blue-800/70'>Search</button>
+                        <button onClick={() => setSearchParams('')} className='bg-slate-50 md:text-lg text-red-600 border hover:border-red-500 hover:font-bold border-gray-300 py-2 px-12 rounded-xl'>Reset</button>
+                        <button onClick={handleOpenFilters} className='bg-gray-3c00 md:text-lg flex items-center gap-2 hover:font-bold border-gray-300 py-1 px-4 rounded'><IoFilterSharp />Filters</button>
                     </div>
                 </div>
             </div>
@@ -99,6 +108,7 @@ const Home = () => {
                      <DisplayPatientResult 
                                   patients={currentPatients}
                                   handleAdvancedFiltering={handleAdvancedFiltering}
+                                  isTrue={isTrue}
                                   />
             {patientsPerPage > 5 &&  
             <Pagination patientsPerPage={patientsPerPage} 

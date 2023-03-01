@@ -59,9 +59,9 @@ const AdvanceFilters: React.FC<FunctionProps> = ({ handleFilter}) => {
 
 
   return (
-    <div className='mb-2 mt-8'>
+    <div className='ml-6 md:mb-2 mt-8'>
         <div className='md:ml-32 flex md:gap-12 gap-3'>
-        <div className='md:px-2 py-1 border border-gray-400 rounded-lg'>
+        <div className='p-1 h-8 text-sm md:h-12 md:text-md md:px-2 py-1 border border-gray-400 rounded-lg'>
         <label>
           Gender:
         <select className='md:p-2 outline-none'
@@ -74,7 +74,7 @@ const AdvanceFilters: React.FC<FunctionProps> = ({ handleFilter}) => {
         </label>
         </div>
 
-        <div className='md:px-2 py-1 border border-gray-400 rounded-lg'>
+        <div className='p-1 h-8 text-sm md:h-12 md:text-md md:px-2 py-1 border border-gray-400 rounded-lg'>
         <label>
           Age bracket:
         <select className='md:p-2 outline-none' 
@@ -86,7 +86,7 @@ const AdvanceFilters: React.FC<FunctionProps> = ({ handleFilter}) => {
         </select>
         </label>
         </div>
-        <div className='m-2'>
+        <div className='text-sm md:m-2'>
           <button onClick={handlePatientSearch} className='bg-white shadow-lg hover:text-white hover:bg-blue-500 text-black font-bold py-2 px-4 rounded'>Apply</button>
         </div>
         </div>
