@@ -43,10 +43,10 @@ const Home = () => {
           }
         localStorage.removeItem("Banner")
 
-        const userInformation = localStorage.getItem("authenticated")
-        if(userInformation !== "true"){
-            navigate('/login')
-        }
+        // const userInformation = localStorage.getItem("authenticated")
+        // if(userInformation !== "true"){
+        //     navigate('/login')
+        // }
         
         },[]) 
 
