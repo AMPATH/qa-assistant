@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import Header from "../Header";
 import SideNavBar from "../SideNavBar";
@@ -12,14 +12,8 @@ function Orders() {
   const { patientData } = useContext(AppContext);
   const uuid = patientData.map((info: any) => info[0].uuid);
 
-  let currentUuid: string | undefined;
-
-  if (uuid.length > 0) {
-    localStorage.setItem("uuid", JSON.stringify(uuid));
-  } else {
-    const getUuid = localStorage.getItem("uuid");
-    currentUuid = getUuid?.replace(/[\[\]"]/g, "");
-  }
+  const routeParams = useParams();
+  const { id } = routeParams;
 
   return (
     <>
@@ -28,7 +22,7 @@ function Orders() {
       <div className="">
         <ul className="ml-[25%] text-sm font-medium text-center text-gray-500 dark:text-gray-400 dark:border-gray-700 flex flex-wrap -mb-px md:w-[60%]">
           <Link
-            to={uuid.length > 0 ? `/orders/${uuid}` : `/orders/${currentUuid}`}
+            to={uuid.length > 0 ? `/orders/${uuid}` : `/orders/${id}`}
             className={
               openTab === 1
                 ? "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 mt-2"
@@ -41,7 +35,7 @@ function Orders() {
             <li>Active Orders</li>
           </Link>
           <Link
-            to={uuid.length > 0 ? `/orders/${uuid}` : `/orders/${currentUuid}`}
+            to={uuid.length > 0 ? `/orders/${uuid}` : `/orders/${id}`}
             className={
               openTab === 2
                 ? "inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 mt-2"

@@ -8,7 +8,7 @@ import {
   resetVoidedOrders,
 } from "./Order.resource";
 import { ClipLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import swal from "sweetalert";
 
 let newVoidOrders: Order[];
@@ -19,6 +19,7 @@ function ActiveOrders() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [patientsPerPage] = useState<number>(5);
   const [Loading, isLoading] = useState(false);
+  const [patientNameAfterReload, setPatientNameAfterReload] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,14 +29,20 @@ function ActiveOrders() {
     (info: any = {}) => info[0].person.preferredName.display
   );
 
+  const indexOfLastPatient = currentPage * patientsPerPage;
+  const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
+  const currentOrders = orders.slice(indexOfFirstPatients, indexOfLastPatient);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const routeParams = useParams();
+  const { id } = routeParams;
+
   useEffect(() => {
     const fetchingResources = async () => {
       isLoading(true);
 
       if (uuid.length > 0) {
-        localStorage.setItem("uuid", JSON.stringify(uuid));
-        localStorage.setItem("patientName", JSON.stringify(patientName));
-
         const fetchedOrders = await fetchActiveOrders(uuid);
         setOrders(fetchedOrders);
         isLoading(false);
@@ -43,16 +50,17 @@ function ActiveOrders() {
         const user = getUser();
         setPrivileges(user.privileges);
       } else {
-        const getUuid = localStorage.getItem("uuid");
-        const currentUuid = getUuid?.replace(/[\[\]"]/g, "");
+        if (id) {
+          navigate(`/orders/${id}`);
 
-        navigate(`/orders/${currentUuid}`);
+          const response = await fetch(`/openmrs/ws/rest/v1/patient/${id}`);
+          const data = await response.json();
+          setPatientNameAfterReload(data.person.display);
 
-        const user = getUser();
-        setPrivileges(user.privileges);
+          const user = getUser();
+          setPrivileges(user.privileges);
 
-        if (getUuid) {
-          const fetchedOrders = await fetchActiveOrders(JSON.parse(getUuid));
+          const fetchedOrders = await fetchActiveOrders(id);
           setOrders(fetchedOrders);
           isLoading(false);
         } else {
@@ -118,16 +126,6 @@ function ActiveOrders() {
     }
   };
 
-  const indexOfLastPatient = currentPage * patientsPerPage;
-  const indexOfFirstPatients = indexOfLastPatient - patientsPerPage;
-  const currentOrders = orders.slice(indexOfFirstPatients, indexOfLastPatient);
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const userInfo = localStorage.getItem("patientName");
-  const userName = JSON.parse(userInfo!);
-  const currentUser = userName?.join("");
-
   return (
     <>
       {Loading ? (
@@ -142,7 +140,9 @@ function ActiveOrders() {
                 <h2 className="text-2xl text-center">
                   Active Orders for{" "}
                   <span className="font-bold text-blue-500">
-                    {patientName.length > 0 ? patientName : currentUser}
+                    {patientName.length > 0
+                      ? patientName
+                      : patientNameAfterReload}
                   </span>
                 </h2>
                 <h2 className="p-4 ml-32 mb-2 mt-4">
