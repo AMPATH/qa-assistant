@@ -83,23 +83,28 @@ function ActiveOrders() {
             {
               method: "DELETE",
             }
-          );
-          if (response.ok) {
-            swal("Order has been voided", {
-              icon: "success",
-            });
+          ).then(async (response) => {
+            if (response.ok) {
+              swal("Order has been voided", {
+                icon: "success",
+              });
 
-            const currentOrders = orders.filter(
-              (order) => order.orderUuid !== orderUuid
-            );
-            setOrders(currentOrders);
+              const currentOrders = orders.filter(
+                (order) => order.orderUuid !== orderUuid
+              );
+              setOrders(currentOrders);
 
-            newVoidOrders = await resetVoidedOrders(uuid);
-          } else {
-            swal("Unable to void order", {
-              icon: "error",
-            });
-          }
+              newVoidOrders = await resetVoidedOrders(uuid);
+            } else if (response.status === 504) {
+              swal("Request is taking too long, try refreshing the page", {
+                icon: "error",
+              });
+            } else {
+              swal("Unable to void order", {
+                icon: "error",
+              });
+            }
+          });
         } else {
           swal("Order has not been voided");
         }

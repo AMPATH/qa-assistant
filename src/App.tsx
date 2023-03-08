@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppContext, AppContextType } from "./context/AppContext";
 import { useState } from "react";
 import Orders from "./components/Orders/Orders.component";
+import Home from "./components/Home";
 
 const App = () => {
   const [patients, setPatients] = useState<[]>([]);
@@ -28,7 +29,8 @@ const App = () => {
     <AppContext.Provider value={contextValue}>
       <Router>
         <Routes>
-          <Route path="/orders/:id" element={<Orders />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </Router>
     </AppContext.Provider>
