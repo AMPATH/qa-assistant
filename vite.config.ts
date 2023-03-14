@@ -1,11 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { Server } from "https";
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      "/openmrs": "https://dev3.openmrs.org",
+      //target: "http://localhost:8080/"
+      // target: "https://dev3.openmrs.org"
+    },
+  },
   plugins: [react()],
   test: {
-    environment: 'jsdom',
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./tests/setup.ts",
   },
-  setupFiles: './tests/setup.ts'
+  // setupFiles: './tests/setup.ts'
 });
