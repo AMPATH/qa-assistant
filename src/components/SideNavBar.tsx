@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 const SideNavBar = () => {
   return (
-    <div className='hidden md:block absolute bg-white h-screen pl-[2%] shadow-lg'>
+    <div className='hidden xl:block absolute bg-white h-screen pl-[2%] shadow-lg'>
         <nav className='mt-20'>
             <ul className='flex flex-col gap-10 text-xl mr-2'>
                 <Link to='/patients/:id'>

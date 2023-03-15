@@ -5,7 +5,7 @@ import { Server } from "https";
 export default defineConfig({
   server:{
     proxy:{
-      '/openmrs': "http://localhost:8089/"
+      '/openmrs': "https://dev3.openmrs.org"
     },
   },
   plugins: [react()],
