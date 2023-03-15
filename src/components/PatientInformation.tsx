@@ -7,7 +7,8 @@ import SideNavBar from './SideNavBar';
 const PatientInformation = () => {
     const { patientData } = useContext(AppContext)
  
-
+    console.log(patientData);
+    
     return (
         <>
        <Header />
@@ -15,16 +16,17 @@ const PatientInformation = () => {
         <div className='bg-lightGray h-screen'>
         {patientData.length <= 1 ? patientData.map((info: any = {}, index) => (
             <>
-          <div className=' w-[70%] mx-auto flex h-[25%] pt-8 ' key={index}>
-          <div className='bg-hashBlue p-4 rounded w-[20%]'>
-              <div className='bg-lightGray rounded-full mx-auto w-36 h-36 flex justify-center items-center'>
-              <h1 className='text-9xl font-bold '>{info[0].person.preferredName.display[0]}</h1>
-              </div>
-              <div>
-                  <h3 className='font-bold text-white text-center'>{info[0].person.preferredName.display}</h3>
-              </div>
-          </div>
-          <div className='flex p-8 bg-white rounded w-[80%] justify-between text-xl'>
+            <div className='sm:w-[85%] mx-auto sm:flex pt-8 lg:ml-[20%] ' key={index}>
+                <div className='bg-hashBlue p-4 rounded sm:w-md '>
+                    <div className='bg-lightGray rounded-full mx-auto w-36 h-36 flex justify-center items-center'>
+                        <h1 className='text-9xl font-bold '>{info[0].person.preferredName.display[0]}</h1>
+                    </div>
+                    <div>
+                        <h3 className='font-bold text-white text-center'>{info[0].person.preferredName.display}</h3>
+                    </div>
+                </div>
+            <div className='grid grid-cols-1 gap-8 md:text-sm 2xl:text-lg md:grid-cols-4
+                  p-8 bg-white rounded md:w-[75%] justify-between'>
 
                                           <div key={index}>
                                              <b>Address</b>
@@ -42,8 +44,8 @@ const PatientInformation = () => {
                                              <b>Date of Birth</b>
                                              <p>{new Date(info[0]?.person.birthdate).toLocaleString().split(" ")[0].slice(0,-1)}</p>
                                          </div>
-          </div>
-          </div>
+                </div>
+            </div>
           
             </>
         )) : (<p className='absolute ml-[15%]'>Go to search patient..</p>)}
