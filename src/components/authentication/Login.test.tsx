@@ -13,6 +13,7 @@ import AuthenticationResource from "./AuthenticationResource";
 import { act } from "react-dom/test-utils";
 import { handlers } from "../../mocks/handlers";
 import { setupServer } from "msw/node";
+import { MemoryRouter as Router } from 'react-router-dom';
 
 // setup the mock server handler
 const server = setupServer(...handlers);
@@ -31,7 +32,11 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  const { getByRole, getByPlaceholderText } = render(<Login />);
+  const { getByRole, getByPlaceholderText } = render(
+  <Router>
+  <Login />
+  </Router>
+  );
   userNameField = getByPlaceholderText(/Username/i);
   passwordField = getByPlaceholderText(/Password/i);
   loginButton = getByRole("button", { name: "Log In" });
