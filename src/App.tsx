@@ -10,6 +10,7 @@ import Home from "./components/layout/Home";
 import { CheckSession, DeleteSession } from "./components/ManageSession";
 import Moh731SyncQueueComponent from "./components/RdeSync/Moh731Sync.component";
 import AddPatientIdentifier from "./components/RdeSync/AddPatients.component";
+import CsvUpload from "./components/csvUploads/CsvUpload";
 
 const App = () => {
   const [currentPatient] = useState<Object[]>([]);
@@ -44,6 +45,7 @@ const App = () => {
               path="/moh-731-sync/add-patients"
               element={<AddPatientIdentifier />}
             />
+            <Route path="/csv-uploads" element={<CsvUpload />}/>
           </Route>
         </Routes>
       </Router>
