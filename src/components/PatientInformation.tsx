@@ -1,9 +1,9 @@
-// import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // import { useParams } from 'react-router-dom';
 // import { AppContext } from '../context/AppContext'
 import { useState } from 'react';
-import Header from './Header';
-import SideNavBar from './SideNavBar';
+//import Header from './Header';
+//import SideNavBar from './SideNavBar';
 
 const PatientInformation = () => {
     // const { patientData } = useContext(AppContext)
