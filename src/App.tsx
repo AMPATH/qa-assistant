@@ -8,6 +8,8 @@ import ProtectedRoutes from "./components/authentication/ProtectedRoutes";
 import PatientInformation from "./components/PatientInformation";
 import Home from "./components/Home/Home";
 import { CheckSession, DeleteSession } from "./components/ManageSession";
+import SyncPatientSummary from "./components/RdeSync/SyncPatientSummary";
+import SearchPatientIdentifier from "./components/RdeSync/SearchPatientIdentifier";
 
 const App = () => {
   const [currentPatient] = useState<Object[]>([]);
@@ -34,6 +36,8 @@ const App = () => {
             <Route path="/patient-search" element={<PatientSearch />} />
             <Route path="/patientInfo/:id" element={<PatientInformation />} />
             <Route path="/patient/:id/orders" element={<Orders />} />
+            <Route path = "/rde"element = {<SyncPatientSummary/>}/>
+            <Route path = "/rde-identifier" element = {<SearchPatientIdentifier/>}/>
           </Route>
         </Routes>
       </Router>
