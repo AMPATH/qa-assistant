@@ -5,16 +5,16 @@ export default defineConfig({
   server: {
     proxy: {
       "/openmrs": {
-        target: "https://dev3.openmrs.org",
+        target: "http://localhost:8089/",
         changeOrigin: true,
         secure: false,
       },
     },
   },
   plugins: [react()],
-  test: {
-    globals:true,
-    environment: 'jsdom',
-    setupFiles: './tests/setup.ts',
-  },
+  // test: {
+  //   globals:true,
+  //   environment: 'jsdom',
+  //   setupFiles: './tests/setup.ts',
+  // },
 });
