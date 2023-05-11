@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AppContext, AppContextType,  PatientObjSubset } from './context/AppContext';
 import { AppContext, AppContextType } from './context/AppContext';
 import { useState } from 'react';
 import PatientSearch from './components/patientSearch/Patient';
@@ -13,11 +14,40 @@ import Moh731SyncQueueComponent from './components/RdeSync/Moh731Sync.component'
 import Observation from './components/observations/Observation';
 
 const App = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const [currentPatient] = useState<Object[]>([]);
+  const [currentPatient, setCurrentPatient] = useState<PatientObjSubset>({
+    preferredName: {
+      uuid: '',
+      display: '',
+      links: [],
+    },
+    preferredAddress: {
+      uuid: '',
+      display: '',
+      links: [],
+    },
+    gender: '',
+    age: 0,
+    birthdate: '',
+  });
+
 
   const contextValue: AppContextType = {
-    currentPatient,
+    currentPatient: {
+      preferredName: currentPatient.preferredName || {
+        uuid: '',
+        display: '',
+        links: [],
+      },
+      preferredAddress: currentPatient.preferredAddress || {
+        uuid: '',
+        display: '',
+        links: [],
+      },
+      gender: currentPatient.gender || '',
+      age: currentPatient.age || 0,
+      birthdate: currentPatient.birthdate || '',
+    },
+    setCurrentPatient,
   };
 
   return (

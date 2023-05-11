@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import AdvanceFilters from './AdvanceFilters';
-import { useContext } from 'react';
-import { AppContext } from '../../context/AppContext';
+import { useContext} from 'react';
+import { AppContext, PatientObj } from '../../context/AppContext';
 
 interface SearchPatientProps {
   searchedPatientsResult: any;
@@ -14,18 +14,18 @@ const DisplayPatientResult: React.FC<SearchPatientProps> = ({
   searchedPatientsResult,
   setSearchedPatientsResult,
   isTrue,
-}: SearchPatientProps) => {
-  const { currentPatient } = useContext(AppContext);
-
+}) => {
+  const { setCurrentPatient } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleRedirection = (id: number) => {
-    currentPatient.length = 0;
-    // eslint-disable-next-line @typescript-eslint/ban-types, no-empty-pattern
-    const result: Object[] = ([] = searchedPatientsResult.filter((data: any) => data.uuid === id));
-    currentPatient.push(result);
+    const result: PatientObj | undefined = searchedPatientsResult.find((data: any) => data.uuid === id);
+  if (result) {
+    const { preferredName, preferredAddress, gender, age, birthdate } = result.person;
+    setCurrentPatient({ preferredName, preferredAddress, gender, age, birthdate });
     navigate(`/patientInfo/${id}`);
   };
+}
 
   const handleFilter = (filteredPatients: object[]) => {
     if (filteredPatients) {
